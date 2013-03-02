@@ -1,0 +1,10 @@
+password
+pass
+username
+user
+u
+cfpb
+[0-90-90-9]-[0-90-9]-[0-90-90-90-9]
+# To Do:
+# IP Addresses
+# Machine Names

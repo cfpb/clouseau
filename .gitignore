@@ -1,0 +1,7 @@
+*.pyc
+*.swo
+*.log
+*.swp
+tmp
+temp
+_temp

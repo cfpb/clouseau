@@ -13,7 +13,8 @@ import json
 import pprint
 import argparse as arse
 import textwrap
-from output import *
+import sys
+from colors import *
 
 #pp = pprint.PrettyPrinter()
 
@@ -29,9 +30,27 @@ class Clouseau:
     def __init__(self):
         pass
 
+    def clone_repo(self, url, destination):
+        try:
+            _out = subprocess.check_output(['git', 'clone', url, destination])        
+        
+        except subprocess.CalledProcessError:
+            print blue( "Directory, %s, exits. Trying git-pull instead of clone." % destination )
+            _out = subprocess.check_output(['git', '--git-dir=%s/.git' % destination, 'pull'])       
+            print smoke( "Git says: %s" % _out )
+        
+        except :
+            e = sys.exc_info()[0]
+            print red( 'Problem writing to destination: %s' % destination ) 
+            raise
+        
+        return _out
+            
+
+
     def parse_args( self, arguments ):
 
-        print ( os.path.abspath( 'clouseau/patterns/patterns.txt' ) )
+        #print ( os.path.abspath( 'clouseau/patterns/patterns.txt' ) )
         p = arse.ArgumentParser (description="  Clouseau: A silly git inspector", version=VERSION)
         p.add_argument('--url', '-u', required=True, 
                         help="Fully qualified git URL (http://www.kernel.org/pub//software/scm/git/docs/git-clone.html)",
@@ -61,13 +80,60 @@ class Clouseau:
 
 
 
+
+
+
 class Parser:    
+    
     def __init__(self):
         pass
 
-    def parse(program):
-        parsed ='123'
-        return parsed
+    def parse(self, terms, repo):
+        
+        # Lexemes:
+        file_name_heading = re.compile( '^[a-zA-Z]' )
+        function_name = re.compile( '^[0-9]+=' )            
+        matched_line = re.compile( '^[0-9]+:' ) 
+        
+        # Main results data structure
+        clouseau = {}
+
+        # - A collection of nodes
+        ast_root = Node( type='root', value=None, parent=None )
+        os.chdir( repo )
+        
+        for term in terms:
+            git_grep = subprocess.Popen(['git','grep','-inwa', '--heading', '--cached', '--no-color', '--break', term], stdout=subprocess.PIPE)
+            # Maybe write it all to a file first, aka Raw.log, and then parse that, which could 
+            # allow for multiple passes
+        
+            clouseau.update( {term: {}}  )
+        
+            for line in git_grep.stdout:
+               # print blue( "Line: " ), line
+
+                if file_name_heading.match( line ):
+                    title = line.replace('/','_')
+                    title = title.replace('.','_').strip()
+                    clouseau[term][title] = {'src' : line.strip() }
+                    clouseau[term][title]['matched_lines'] = []
+                    #node = Node( type='src', value='line', parent=ast_root )
+                    #print 'Key (parse): ' , title
+
+                if function_name.match( line ):
+                    function = line.split('=')
+                    clouseau[term][title].update( {'function': function} ) 
+                    #Node( type='function', value=function, parent=node )
+                    clouseau[term][title].update( {'matches': len(function)} ) 
+
+                if matched_line.match( line ):
+                    matched = line.split(':' , 1)
+                    matched[0] = matched[0].strip()
+                    matched[1] = matched[1].strip()
+                    clouseau[term][title]['matched_lines'].append( matched )
+                    #Node( type='matched_line', value=line.split(':',1), parent=node )
+
+        return clouseau
 
 
 class Node:

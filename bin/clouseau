@@ -1,0 +1,9 @@
+#! /usr/bin/ENV python
+# -*- codes: utf-8 -*-
+
+def main():
+    print 'Does your dog bite?'
+
+
+if __name__ == '__main__':
+    main()

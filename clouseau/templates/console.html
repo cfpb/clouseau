@@ -1,0 +1,30 @@
+{% macro ok() %}
+    {{ '✓'|green }}
+{%- endmacro %}
+{% macro fail() %}
+    {{'✖'|darkred}}
+{%-endmacro%}
+{{'-------------------------------------------------------------------------------
+                    Clouseau, the silly git inspector.
+-------------------------------------------------------------------------------'|purple}}
+
+{{ "Clouseau found the following:"|darkgreen }}
+{# {{ data|green }} #}
+{% for term in data %}
+{{"Search term"|bold}}:  {{ term|orange_bg }}
+    {%- for item in data[term] %}
+    {{ '✓'|green }}  {{ data[term][item]['src']|yellow -}}
+    {%- for t in data[term][item] -%}{%- if t == 'matched_lines' -%}
+    {%- set lines = data[term][item] %}
+    {% for line in lines['matched_lines'] %}
+      {{ line[1] }}  Line:{{ line[0]|bold -}}
+    {% endfor %}    
+    {%- endif %}
+    {%- endfor %}   
+  {{"__________________________________________________________________________"|gray}}
+
+
+    {%- endfor %}
+{%- endfor %}
+
+

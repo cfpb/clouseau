@@ -72,7 +72,7 @@ class Clouseau:
     
         ids = p.parse(terms, parsed['repo_dir'] )
 
-       # Highlight (Ack) 
+       # Highlight (Ack!) 
         for item in ids:
             for x in ids[item]:
                 for y in ids[item][x]:
@@ -81,7 +81,11 @@ class Clouseau:
                         for m in match:
                             for term in terms:
                                 if term == item:
-                                    m[1] = m[1].replace(term, orange_bg(term) ) 
+                                    regx = re.compile(term)
+                                    match = regx.search( m[1] )
+                                    m[1] = m[1].replace( match.group(0) , orange_bg( match.group(0)  ) ) 
+                                    # This matches only the term, not the matched expression
+                                    #m[1] = m[1].replace(term, orange_bg(term) ) 
 
 
         
@@ -184,7 +188,8 @@ class Parser:
         os.chdir( repo )
         
         for term in terms:
-            git_grep = subprocess.Popen(['git','grep','-inwa', '--heading', '--cached', '--no-color', '--break', term], stdout=subprocess.PIPE)
+            git_grep = subprocess.Popen(['git','grep','-inwa', '--heading', '--cached', '--no-color', \
+                                '--max-depth','-1', '-E', '--break', term], stdout=subprocess.PIPE)
             # Maybe write it all to a file first, aka Raw.log, and then parse that, which could 
             # allow for multiple passes
         
@@ -195,7 +200,7 @@ class Parser:
                 if file_name_heading.match( line ):
                     title = line.replace('/','_')
                     title = title.replace('.','_').strip()
-                    clouseau[term][title] = {'src' : line.strip() }
+                    clouseau[term][title] = {'src' : line.strip().encode('utf-8') }
                     clouseau[term][title]['matched_lines'] = []
                     #node = Node( type='src', value='line', parent=ast_root )
 

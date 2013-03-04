@@ -14,7 +14,7 @@ file blobs containing the patterns defined in a ```patterns.txt``` file or words
 
 It should look something like this:
 
-[Clouseau Screen Shot]: https://raw.github.com/virtix/clouseau/master/ss.png "Clouseau Screen Shot"
+![](https://raw.github.com/virtix/clouseau/master/ss.png)
 
 
 

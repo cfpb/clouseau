@@ -10,7 +10,7 @@ def jinja_test():
     terms = [ 'password', 'gov']
     args = ['-u', 'git://github.com/virtix/cato.git']
     parsed = clouseau.parse_args( args )
-
+    #Requires Cato to be present
     clouseau.render_to_console( terms, parsed )
 
 

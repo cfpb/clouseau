@@ -27,10 +27,13 @@ class Clouseau:
         pass
 
 
-    def main(self , _args, terms=['gov','password']):
+    def main(self , _args, terms=['gov','password','pwd', 'user', 'cfpb']):
         args = self.parse_args( _args )
-        print args
+#        print args
         parser = Parser()
+        terms = args['patterns'].readlines()
+        terms = [term.strip() for term in terms]
+        #print terms
         self.clone_repo( args['url'], args['repo_dir'] ) 
         self.render_to_console( terms, args )
         
@@ -43,6 +46,7 @@ class Clouseau:
             - fetch data (parse)
             - highlight search terms
             - render template
+            - fix/improve paging
          
         """
         p = Parser()
@@ -68,7 +72,7 @@ class Clouseau:
     
         ids = p.parse(terms, parsed['repo_dir'] )
 
-        
+       # Highlight (Ack) 
         for item in ids:
             for x in ids[item]:
                 for y in ids[item][x]:
@@ -76,10 +80,25 @@ class Clouseau:
                         match = ids[item][x][y]
                         for m in match:
                             for term in terms:
-                                m[1] = m[1].replace(term, orange_bg(term) ) 
+                                if term == item:
+                                    m[1] = m[1].replace(term, orange_bg(term) ) 
 
 
-        print template.render(data=ids)
+        
+        
+        data_to_render = template.render(data=ids)
+#        print data_to_render
+        #From git core 
+        try:
+            pager = subprocess.Popen(['less', '-F', '-R', '-S', '-X', '-K'], stdin=subprocess.PIPE, stdout=sys.stdout)
+            lines = data_to_render.split('\n')
+            #print lines
+            for line in lines:
+                pager.stdin.write( line.encode('utf-8') + '\n' )
+            pager.stdin.close()
+            pager.wait()
+        except KeyboardInterrupt:
+            pass
 
 
 

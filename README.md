@@ -2,26 +2,19 @@
 
 A silly git repo inspector
 
+### Status: Pre-Natal
 
 The intent is that this can be run against any repo and it will search the index and tree for 
-file blobs containing the patterns defined in ```patterns.txt```.  The shell script is a quick
- and dirty proof-of-concept; that is, it needs to be run manually and requires a human to inspect 
- the output.
-
-
-There is the start of a newer Python app that parses the git-grep output to a some TBD data structure.
-
+file blobs containing the patterns defined in a ```patterns.txt``` file or words specified on the command line.
 
 
 #### Current Usage
 
-```$ ./clouseau.sh [repo-url] [repo-name]``` 
+```$ bin/clouseau [repo-url]``` 
 
-Example:  
+It should look something like this:
 
-```$ ./clouseau.sh git://github.com/virtix/cato.git cato```
-
-
+[ScreenShot](https://raw.github.com/virtix/clouseau/master/ss.png)
 
 
 

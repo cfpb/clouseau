@@ -7,48 +7,12 @@ from jinja2 import Template, Environment, PackageLoader
 
 
 def jinja_test():
-    p = Parser()
-    terms = ['user']
+    terms = [ 'password', 'gov']
     args = ['-u', 'git://github.com/virtix/cato.git']
     parsed = clouseau.parse_args( args )
 
-    env = Environment(loader=PackageLoader('clouseau', 'templates'))
-    
-    env.filters['purple'] = purple
-    env.filters['cyan'] = cyan
-    env.filters['darkcyan'] = darkcyan
-    env.filters['blue'] = blue
-    env.filters['darkblue'] = darkblue
-    env.filters['red'] = red
-    env.filters['darkred'] = darkred
-    env.filters['green'] = green
-    env.filters['darkgreen'] = darkgreen
-    env.filters['yellow'] = yellow
-    env.filters['smoke'] = smoke
-    env.filters['bold'] = bold
-    env.filters['ok'] = ok
-    env.filters['fail'] = fail
-    env.filters['gray'] = gray
-    env.filters['orange_bg'] = orange_bg
-     
-    template = env.get_template('console.html')
-    
-    ids = p.parse(terms, parsed['repo_dir'] )
+    clouseau.render_to_console( terms, parsed )
 
-#    print ids
-
-    for item in ids:
-        for x in ids[item]:
-            for y in ids[item][x]:
-                if y == 'matched_lines':
-                    match = ids[item][x][y]
-                    for m in match:
-                        m[1] = m[1].replace('user', orange_bg('user') ) 
-
-
-
-
-    print template.render(data=ids,terms=terms)
 
 
 

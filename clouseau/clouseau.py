@@ -5,20 +5,16 @@
 #
 #
 import os
-import shutil
 import subprocess
-import logging
 import re
 import json
-import pprint
 import argparse as arse
-import textwrap
 import sys
+from jinja2 import Template, Environment, PackageLoader
 from colors import *
 
-#pp = pprint.PrettyPrinter()
 
-VERSION='0.9.0'
+VERSION='0.1.0'
 
 
 class Clouseau:
@@ -29,6 +25,65 @@ class Clouseau:
 
     def __init__(self):
         pass
+
+
+    def main(self , _args, terms=['gov','password']):
+        args = self.parse_args( _args )
+        print args
+        parser = Parser()
+        self.clone_repo( args['url'], args['repo_dir'] ) 
+        self.render_to_console( terms, args )
+        
+
+
+    def render_to_console(self, terms, parsed):
+        """
+        Much refactoring to do!
+            - setup Jinja and template
+            - fetch data (parse)
+            - highlight search terms
+            - render template
+         
+        """
+        p = Parser()
+        env = Environment(loader=PackageLoader('clouseau', 'templates'))
+        env.filters['purple'] = purple
+        env.filters['cyan'] = cyan
+        env.filters['darkcyan'] = darkcyan
+        env.filters['blue'] = blue
+        env.filters['darkblue'] = darkblue
+        env.filters['red'] = red
+        env.filters['darkred'] = darkred
+        env.filters['green'] = green
+        env.filters['darkgreen'] = darkgreen
+        env.filters['yellow'] = yellow
+        env.filters['smoke'] = smoke
+        env.filters['bold'] = bold
+        env.filters['ok'] = ok
+        env.filters['fail'] = fail
+        env.filters['gray'] = gray
+        env.filters['orange_bg'] = orange_bg
+          
+        template = env.get_template('console.html')
+    
+        ids = p.parse(terms, parsed['repo_dir'] )
+
+        
+        for item in ids:
+            for x in ids[item]:
+                for y in ids[item][x]:
+                    if y == 'matched_lines':
+                        match = ids[item][x][y]
+                        for m in match:
+                            for term in terms:
+                                m[1] = m[1].replace(term, orange_bg(term) ) 
+
+
+        print template.render(data=ids)
+
+
+
+
 
     def clone_repo(self, url, destination):
         try:
@@ -59,7 +114,7 @@ class Clouseau:
         p.add_argument('--patterns', '-p', help="Path to list of regular expressions to use.",
                          action="store", dest="patterns", type=file , default="clouseau/patterns/patterns.txt")
         p.add_argument('--clean', '-c',  dest="clean", action="store_true", default=False, help="Delete the existing git repo and re-clone")
-        p.add_argument('--output', '-o', dest="output_format", required=False, help="Output formats: markdown, raw, html, json")
+        p.add_argument('--output', '-o', dest="output_format", required=False, help="Output formats: console, markdown, raw, html, json")
         p.add_argument('--dest', '-d', dest="dest", default="temp", help="The directory where the git repo is stored. Default: ./temp")
         p.add_argument('--depth',type=int,required=False,help="The depth of the git-clone process. Default is all.")
 
@@ -84,11 +139,18 @@ class Clouseau:
 
 
 class Parser:    
+    """
+    Converts git-grep's stdout to Python dictionary
+    """
     
     def __init__(self):
         pass
 
     def parse(self, terms, repo):
+        """
+        For each term in @terms perform a search of the git repo and store search results
+        (if any) in an iterable.
+        """
         
         # Lexemes:
         file_name_heading = re.compile( '^[a-zA-Z]' )
@@ -110,7 +172,6 @@ class Parser:
             clouseau.update( {term: {}}  )
         
             for line in git_grep.stdout:
-               # print blue( "Line: " ), line
 
                 if file_name_heading.match( line ):
                     title = line.replace('/','_')
@@ -118,7 +179,6 @@ class Parser:
                     clouseau[term][title] = {'src' : line.strip() }
                     clouseau[term][title]['matched_lines'] = []
                     #node = Node( type='src', value='line', parent=ast_root )
-                    #print 'Key (parse): ' , title
 
                 if function_name.match( line ):
                     function = line.split('=')
@@ -136,8 +196,17 @@ class Parser:
         return clouseau
 
 
-class Node:
 
+
+
+
+
+
+class Node:
+    """
+    Placeholder ....
+    """
+    
     def __init__(self,type,value,parent):
         self.type = type
         self.value = value

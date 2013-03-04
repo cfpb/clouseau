@@ -1,8 +1,13 @@
 #! /usr/bin/ENV python
 # -*- codes: utf-8 -*-
+import sys
+from clouseau.clouseau import Clouseau
 
 def main():
-    print 'Does your dog bite?'
+    clouseau = Clouseau()
+    # Go to bed
+    args = [ a for a in sys.argv if a != 'bin/clouseau']
+    clouseau.main( args )
 
 
 if __name__ == '__main__':

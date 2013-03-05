@@ -32,7 +32,7 @@ class Clouseau:
 #        print args
         parser = Parser()
         terms = args['patterns'].readlines()
-        terms = [term.strip() for term in terms]
+        terms = [term.strip() for term in terms if not term.startswith('#')]
         #print terms
         self.clone_repo( args['url'], args['repo_dir'] ) 
         self.render_to_console( terms, args )
@@ -83,7 +83,8 @@ class Clouseau:
                                 if term == item:
                                     regx = re.compile(term)
                                     match = regx.search( m[1] )
-                                    m[1] = m[1].replace( match.group(0) , orange_bg( match.group(0)  ) ) 
+                                    if match:
+                                        m[1] = m[1].replace( match.group(0) , orange_bg( match.group(0)  ) ) 
                                     # This matches only the term, not the matched expression
                                     #m[1] = m[1].replace(term, orange_bg(term) ) 
 
@@ -196,6 +197,13 @@ class Parser:
             clouseau.update( {term: {}}  )
         
             for line in git_grep.stdout:
+                # We don't  know how a lot of the data is encoded, so make sure it's utf-8 before 
+                # processing
+                try:
+                    line = unicode( line, 'utf-8' ) 
+                except UnicodeDecodeError:
+                    line = unicode( line, 'latin-1' ) 
+
 
                 if file_name_heading.match( line ):
                     title = line.replace('/','_')

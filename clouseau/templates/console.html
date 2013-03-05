@@ -5,7 +5,7 @@
     {{'✖'|darkred}}
 {%-endmacro%}
 {{'-------------------------------------------------------------------------------'|purple}}
-{{'                    Clouseau, a silly git inspector.                           '|purple}}
+{{'                    Clouseau, a silly git inspector.                           '|purple|bold}}
 {{'-------------------------------------------------------------------------------'|purple}}
 
 {{ "Clouseau found the following:"|darkgreen }}
@@ -23,9 +23,19 @@
     {%- endif %}
     {%- endfor %}   
     {{ "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _"|gray}}
+  {% else %}
+    No match.
   {%- endfor %}
 
 {{"================================================================================================================================"|gray}}
 {%- endfor %}
+
+
+
+{{'-------------------------------------------------------------------------------'|purple}}
+{{'      What do you do when you find something that should\'t be there?          '|purple}}
+{{'                                                                               '|purple}}
+{{'         https://help.github.com/articles/remove-sensitive-data                '|blue}}
+{{'-------------------------------------------------------------------------------'|purple}}
 
 

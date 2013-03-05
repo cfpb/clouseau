@@ -1,3 +1,6 @@
+# The current implementation supports Posix extended regular expressions
+# http://www.regular-expressions.info/posix.html
+# Clouseau also only highlights the first matched group
 password
 pass
 pwd
@@ -5,5 +8,6 @@ username
 uname
 user
 cfpb
-[0-9]{3,3}
+# ssn 
+[0-9]{3}[\.\-][0-9]{2}[\.\-][0-9]{4}
 gov

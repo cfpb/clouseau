@@ -13,7 +13,7 @@
 {% for term in data %}
 {{"Search term"|bold}}:  {{ term|orange_bg }}
     {%- for item in data[term] %}
-    {{ '✓'|green }}  {{ data[term][item]['src']|yellow -}}
+    {{ '✓'|green }}  {{ data[term][item]['src']|yellow }} {{ data[term][item]['refspec']|gray -}}
     {%- for t in data[term][item] -%}{%- if t == 'matched_lines' -%}
     {%- set lines = data[term][item] %}
     {% for line in lines['matched_lines'] %}

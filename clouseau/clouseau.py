@@ -177,7 +177,7 @@ class Parser:
         """
         
         # Lexemes:
-        file_name_heading = re.compile( '^[a-zA-Z]' )
+        file_name_heading = re.compile( '^[0-9a-zA-Z]{40}:.+$' )
         function_name = re.compile( '^[0-9]+=' )            
         matched_line = re.compile( '^[0-9]+:' ) 
         
@@ -188,41 +188,61 @@ class Parser:
         ast_root = Node( type='root', value=None, parent=None )
         os.chdir( repo )
         
+        #May be large
+        rev_list = subprocess.Popen( ['git' ,'rev-list' ,'--all' ], \
+                                        stderr=subprocess.PIPE, stdout=subprocess.PIPE )
+        
+        rev_out = rev_list.communicate()[0]
+        revlist = ",".join( rev_out.split('\n') )
+        print revlist
+
         for term in terms:
-            git_grep = subprocess.Popen(['git','grep','-inwa', '--heading', '--cached', '--no-color', \
-                                '--max-depth','-1', '-E', '--break', term], stdout=subprocess.PIPE)
+            git_grep = subprocess.Popen(['git','grep','-inwa', '--heading', '--no-color', \
+                                '--max-depth','-1', '-E', '--break', '--', term, ''], \
+                                stderr=subprocess.PIPE, stdout=subprocess.PIPE)
             # Maybe write it all to a file first, aka Raw.log, and then parse that, which could 
             # allow for multiple passes
+
+            (out,err) = git_grep.communicate()
         
             clouseau.update( {term: {}}  )
-        
-            for line in git_grep.stdout:
+
+            for line in out.split('\n'):
                 # We don't  know how a lot of the data is encoded, so make sure it's utf-8 before 
                 # processing
+                if line == '':
+                    continue
                 try:
                     line = unicode( line, 'utf-8' ) 
                 except UnicodeDecodeError:
                     line = unicode( line, 'latin-1' ) 
-
+                
 
                 if file_name_heading.match( line ):
+                    title = line.split(':', 1)[1]
                     title = line.replace('/','_')
                     title = title.replace('.','_').strip()
-                    clouseau[term][title] = {'src' : line.strip().encode('utf-8') }
+                    _src = line.strip().encode('utf-8')
+                    _srca = _src.split(':', 1)
+                    clouseau[term][title] = {'src' : _srca[1] }
+                    clouseau[term][title]['refspec'] =  _srca[0]
+                    #clouseau[term][title] = {'ref' : _srca[0] }
                     clouseau[term][title]['matched_lines'] = []
-                    #node = Node( type='src', value='line', parent=ast_root )
+                    continue
 
                 if function_name.match( line ):
                     function = line.split('=')
                     clouseau[term][title].update( {'function': function} ) 
                     #Node( type='function', value=function, parent=node )
-                    clouseau[term][title].update( {'matches': len(function)} ) 
+                    clouseau[term][title].update( {'matches': len(function)} )
+                    continue
 
                 if matched_line.match( line ):
                     matched = line.split(':' , 1)
                     matched[0] = matched[0].strip()
                     matched[1] = matched[1].strip()
                     clouseau[term][title]['matched_lines'].append( matched )
+                    continue
                     #Node( type='matched_line', value=line.split(':',1), parent=node )
 
         return clouseau

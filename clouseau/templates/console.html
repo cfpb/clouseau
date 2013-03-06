@@ -10,10 +10,11 @@
 
 {{ "Clouseau found the following:"|darkgreen }}
 {# {{ data|green }} #}
-{% for term in data %}
+{{ data['meta']['github_url']|green }}
+{% for term in data if term != 'meta' %}
 {{"Search term"|bold}}:  {{ term|orange_bg }}
-    {%- for item in data[term] %}
-    {{ '✓'|green }}  {{ data[term][item]['src']|yellow }} {{ data[term][item]['refspec']|gray -}}
+    {%- for item in data[term]  %}
+    {{ '✓'|green }}  {{ data[term][item]['src']|yellow }}   {{ data['meta']['github_url']|darkblue ~ "/commit/"|darkblue ~ data[term][item]['refspec']|darkblue -}}
     {%- for t in data[term][item] -%}{%- if t == 'matched_lines' -%}
     {%- set lines = data[term][item] %}
     {% for line in lines['matched_lines'] %}

@@ -17,6 +17,13 @@ from colors import *
 VERSION='0.1.0'
 
 
+#
+# To Do: Make Clouseau the API. Decouple console client.
+# Clouseau accepts arguments and returns a predictable data structure.
+# 
+# Perhaps Clouseau accepts a client with a known interface; e.g., client.render() or
+# client.render_to( location )
+#
 class Clouseau:
     """
     Wrap and delegate
@@ -39,6 +46,7 @@ class Clouseau:
         
 
 
+    # This belongs in a console client. Let's clarify the interface
     def render_to_console(self, terms, parsed):
         """
         Much refactoring to do!
@@ -70,9 +78,10 @@ class Clouseau:
           
         template = env.get_template('console.html')
     
-        ids = p.parse(terms, parsed['repo_dir'] )
+        ids = p.parse(terms, parsed['repo_dir'], kargs=parsed )
+        #print ids
 
-       # Highlight (Ack!) 
+       # Highlight (Ack! This feels like the worst code I've written) 
         for item in ids:
             for x in ids[item]:
                 for y in ids[item][x]:
@@ -92,7 +101,6 @@ class Clouseau:
         
         
         data_to_render = template.render(data=ids)
-#        print data_to_render
         #From git core 
         try:
             pager = subprocess.Popen(['less', '-F', '-R', '-S', '-X', '-K'], stdin=subprocess.PIPE, stdout=sys.stdout)
@@ -127,34 +135,42 @@ class Clouseau:
             
 
 
+    # Belongs in console client
     def parse_args( self, arguments ):
 
         #print ( os.path.abspath( 'clouseau/patterns/patterns.txt' ) )
         p = arse.ArgumentParser (description="  Clouseau: A silly git inspector", version=VERSION)
-        p.add_argument('--url', '-u', required=True, 
-                        help="Fully qualified git URL (http://www.kernel.org/pub//software/scm/git/docs/git-clone.html)",
-                        action="store", dest="url"
-                      )
-        p.add_argument('--patterns', '-p', help="Path to list of regular expressions to use.",
-                         action="store", dest="patterns", type=file , default="clouseau/patterns/patterns.txt")
-        p.add_argument('--clean', '-c',  dest="clean", action="store_true", default=False, help="Delete the existing git repo and re-clone")
-        p.add_argument('--output', '-o', dest="output_format", required=False, help="Output formats: console, markdown, raw, html, json")
-        p.add_argument('--dest', '-d', dest="dest", default="temp", help="The directory where the git repo is stored. Default: ./temp")
-        p.add_argument('--depth',type=int,required=False,help="The depth of the git-clone process. Default is all.")
+        p.add_argument('--url', '-u', required=True,  action="store", dest="url",
+                        help="Fully qualified git URL (http://www.kernel.org/pub//software/scm/git/docs/git-clone.html)")
+        p.add_argument('--patterns', '-p', action="store", dest="patterns", type=file ,  default="clouseau/patterns/patterns.txt",
+                        help="Path to list of regular expressions to use.")
+        p.add_argument('--clean', '-c',  dest="clean", action="store_true", default=False, 
+                        help="Delete the existing git repo and re-clone")
+        p.add_argument('--output', '-o', dest="output_format", required=False, 
+                        help="Output formats: console, markdown, raw, html, json")
+        p.add_argument('--output-destination', '-od', dest="output_destination", required=False, 
+                        help="Location where the output is to be stored. Default ./temp.")
+        p.add_argument('--dest', '-d', dest="dest", default="temp", 
+                        help="The directory where the git repo is stored. Default: ./temp")
+        p.add_argument('--pathspec', '-ps', required=False, dest="pathspec",
+                        help="The pattern of files or commits to search. Default: all.")
 
         args = p.parse_args( arguments )
         url = args.url.rstrip('/')
+        github_url = url.rstrip('.git')
         repo = url.rsplit('/',1)[1]
         repo_name = repo.rstrip('.git')
         self.args = args
         return { "url": url,
+                 "github_url": github_url ,
                  "repo": repo,
                  "repo_name": repo_name,
                  "repo_dir": ("%s/%s" % (args.dest,repo_name) ),
                  "clean": args.clean,
                  "output_format": args.output_format,
                  "dest": args.dest,
-                 "patterns": args.patterns
+                 "patterns": args.patterns,
+                 "pathspec": args.pathspec
               }
 
 
@@ -170,12 +186,13 @@ class Parser:
     def __init__(self):
         pass
 
-    def parse(self, terms, repo):
+    def parse(self, terms, repo, **kargs):
         """
         For each term in @terms perform a search of the git repo and store search results
         (if any) in an iterable.
         """
-        
+        #print kargs['kargs']
+
         # Lexemes:
         file_name_heading = re.compile( '^[0-9a-zA-Z]{40}:.+$' )
         function_name = re.compile( '^[0-9]+=' )            
@@ -184,22 +201,36 @@ class Parser:
         # Main results data structure
         clouseau = {}
 
+        clouseau.update( {'meta' : {'github_url': kargs['kargs']['github_url']} } )
+        #print clouseau
+
         # - A collection of nodes
-        ast_root = Node( type='root', value=None, parent=None )
+        #ast_root = Node( type='root', value=None, parent=None )
         os.chdir( repo )
         
-        #May be large
-        rev_list = subprocess.Popen( ['git' ,'rev-list' ,'--all' ], \
+
+        if ( kargs['kargs']['pathspec'] != None ):
+            rev_list = kargs['kargs']['pathspec'] 
+        else:
+            #May be large
+            git_revlist = subprocess.Popen( ['git' ,'rev-list' ,'--all' ], \
                                         stderr=subprocess.PIPE, stdout=subprocess.PIPE )
         
-        rev_out = rev_list.communicate()[0]
-        revlist = ",".join( rev_out.split('\n') )
-        print revlist
+            rev_list = git_revlist.communicate()[0]
+            
+        term = None
 
         for term in terms:
-            git_grep = subprocess.Popen(['git','grep','-inwa', '--heading', '--no-color', \
-                                '--max-depth','-1', '-E', '--break', '--', term, ''], \
-                                stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+            
+            git_grep_cmd = ['git','grep','-inwa', '--heading', '--no-color', \
+                                '--max-depth','-1', '-E', '--break', '--', term]
+            
+            cmd = git_grep_cmd + rev_list.split()
+
+            #print cmd
+
+            git_grep = subprocess.Popen( cmd , stderr=subprocess.PIPE, 
+                                         stdout=subprocess.PIPE)
             # Maybe write it all to a file first, aka Raw.log, and then parse that, which could 
             # allow for multiple passes
 

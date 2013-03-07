@@ -1,20 +1,24 @@
-{% macro ok() %}
-    {{ '✓'|green }}
-{%- endmacro %}
-{% macro fail() %}
-    {{'✖'|darkred}}
-{%-endmacro%}
-{{'-------------------------------------------------------------------------------'|purple}}
-{{'                    Clouseau, a silly git inspector.                           '|purple|bold}}
-{{'-------------------------------------------------------------------------------'|purple}}
+{{'          ^-------------------------------------------------------------------------------^'|purple}}
+{{'          |                    Clouseau, a silly git inspector.                           |'|purple|bold}}
+{{'          |                                                                               |'|purple }}
+{{'          |                                      /\__                                     |'|purple }}
+{{'          |                             .--.----`  - \                                    |'|purple }}
+{{'          |                            /    )    \___/                                    |'|purple }} 
+{{'          |                           |  `------.___)                                     |'|purple }}
+{{'          |                            `---------```                                      |'|purple }}
+{{'          |                                                                               |'|purple }}
+{{'          |-------------------------------------------------------------------------------|'|purple}}
 
-{{ "Clouseau found the following:"|darkgreen }}
+{{ "Clouseau found the following for "|darkgreen }} {{ data['meta']['github_url']|green ~ ":"|darkgreen }}
 {# {{ data|green }} #}
-{{ data['meta']['github_url']|green }}
 {% for term in data if term != 'meta' %}
 {{"Search term"|bold}}:  {{ term|orange_bg }}
     {%- for item in data[term]  %}
-    {{ '✓'|green }}  {{ data[term][item]['src']|yellow }}   {{ data['meta']['github_url']|darkblue ~ "/commit/"|darkblue ~ data[term][item]['refspec']|darkblue -}}
+    {{ '✓'|green }}  {{ data[term][item]['src']|yellow }}
+         {{ data['meta']['github_url']|darkblue ~ "/commit/"|darkblue ~ data[term][item]['refspec']|darkblue }}
+         {{ data[term][item]['git_log'][1]|gray }} {{ data[term][item]['git_log'][2]|gray }}
+         {{ data[term][item]['git_log'][3]|gray }}
+
     {%- for t in data[term][item] -%}{%- if t == 'matched_lines' -%}
     {%- set lines = data[term][item] %}
     {% for line in lines['matched_lines'] %}
@@ -23,7 +27,7 @@
 
     {%- endif %}
     {%- endfor %}   
-    {{ "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _"|gray}}
+    {{ "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _"|gray}}
   {% else %}
     No match.
   {%- endfor %}

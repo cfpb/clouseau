@@ -41,7 +41,8 @@ codes = {
 symbols = {
   'ok'  : '✓',
   'fail'  : '✖',
-  'dot' : '.'
+  'dot' : '.',
+  'em_dash': '—'
 }
 
 
@@ -61,6 +62,9 @@ def ok( text='' ):
 
 def fail( text='' ):
     return red( symbols['fail'] ) + ' ' + text
+
+def em_dash():
+    return symbols['em_dash'] 
 
 
 # ---- Background colors as function calls ---:

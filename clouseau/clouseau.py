@@ -10,6 +10,7 @@ import re
 import json
 import argparse as arse
 import sys
+import shlex
 from jinja2 import Template, Environment, PackageLoader
 from colors import *
 
@@ -208,15 +209,23 @@ class Parser:
         #ast_root = Node( type='root', value=None, parent=None )
         os.chdir( repo )
         
+        path_spec =  kargs['kargs']['pathspec']
 
-        if ( kargs['kargs']['pathspec'] != None ):
-            rev_list = kargs['kargs']['pathspec'] 
-        else:
-            #May be large
-            git_revlist = subprocess.Popen( ['git' ,'rev-list' ,'--all' ], \
+        #
+        # To do: use git log path_spec to get info about the commit
+        # e.g., $git log 3ea013e83a0caef6fa91b5fffe1a0c374d383a90 -1 --stat
+        #
+
+        if ( path_spec != None and path_spec.lower() == 'all' ):
+            git_revlist = subprocess.Popen( ['git' ,'rev-list' ,'--all', '--date-order'], \
                                         stderr=subprocess.PIPE, stdout=subprocess.PIPE )
-        
             rev_list = git_revlist.communicate()[0]
+        elif (path_spec == None):
+            git_revlist = subprocess.Popen( ['git' ,'rev-list' ,'--all', '--date-order', '-1'], \
+                                        stderr=subprocess.PIPE, stdout=subprocess.PIPE )
+            rev_list = git_revlist.communicate()[0]
+        else:
+            rev_list = path_spec
             
         term = None
 
@@ -257,6 +266,10 @@ class Parser:
                     _srca = _src.split(':', 1)
                     clouseau[term][title] = {'src' : _srca[1] }
                     clouseau[term][title]['refspec'] =  _srca[0]
+                    git_log_cmd = subprocess.Popen( ['git', 'log', _srca[0] , '-1'],\
+                            stderr=subprocess.PIPE, stdout=subprocess.PIPE )
+                    git_log = git_log_cmd.communicate()[0]
+                    clouseau[term][title]['git_log'] = [ x.strip() for x in git_log.split('\n') if x != '' ]
                     #clouseau[term][title] = {'ref' : _srca[0] }
                     clouseau[term][title]['matched_lines'] = []
                     continue

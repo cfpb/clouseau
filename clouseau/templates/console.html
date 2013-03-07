@@ -1,5 +1,5 @@
-{{'          ^-------------------------------------------------------------------------------^'|purple}}
-{{'          |                    Clouseau, a silly git inspector.                           |'|purple|bold}}
+{{'           ------------------------------------------------------------------------------- '|purple}}
+{{'          |'|purple}}                        {{ 'Clouseau, a silly git inspector.'|purple|bold}}                       {{'|'|purple}}
 {{'          |                                                                               |'|purple }}
 {{'          |                                      /\__                                     |'|purple }}
 {{'          |                             .--.----`  - \                                    |'|purple }}
@@ -7,9 +7,9 @@
 {{'          |                           |  `------.___)                                     |'|purple }}
 {{'          |                            `---------```                                      |'|purple }}
 {{'          |                                                                               |'|purple }}
-{{'          |-------------------------------------------------------------------------------|'|purple}}
+{{'          `-------------------------------------------------------------------------------`'|purple}}
 
-{{ "Clouseau found the following for "|darkgreen }} {{ data['meta']['github_url']|green ~ ":"|darkgreen }}
+{{ "Clouseau found the following for "|darkgreen }} {{ data['meta']['github_url']|green ~ " :"|darkgreen }}
 {# {{ data|green }} #}
 {% for term in data if term != 'meta' %}
 {{"Search term"|bold}}:  {{ term|orange_bg }}

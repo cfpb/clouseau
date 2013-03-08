@@ -4,10 +4,10 @@ A silly git repo inspector
 
 ### Status: Prenatal
 
-[ X ] Proof of concept
-[ ] Multiple output formats
-[ ] Works on reasonably sized repos
-[ ] Stores previous runs
+- [ X ] Proof of concept
+- [ ] Multiple output formats
+- [ ] Works on reasonably sized repos
+- [ ] Stores previous runs
 
 The intent is that this can be run against any repo and it will search the index for 
 file blobs containing the patterns defined in a ```patterns.txt``` file or a regular expression 

@@ -43,6 +43,10 @@ class Clouseau:
         terms = [term.strip() for term in terms if not term.startswith('#')]
         #print terms
         self.clone_repo( args['url'], args['repo_dir'] ) 
+        #
+        # Call parser here to get intermediate data structure.
+        # Then pass that to client. Client is chosen or specified on
+        # the command line.
         self.render_to_console( terms, args )
         
 
@@ -78,10 +82,15 @@ class Clouseau:
         env.filters['orange_bg'] = orange_bg
           
         template = env.get_template('console.html')
-    
-        ids = p.parse(terms, parsed['repo_dir'], kargs=parsed )
-        #print ids
+        
 
+        # Obviously, this has nothing to do with rendering!
+        if( parsed['term'] != None ):
+            terms = { parsed['term'] }
+        #This too
+
+        ids = p.parse(terms, parsed['repo_dir'], kargs=parsed )
+        
        # Highlight (Ack! This feels like the worst code I've written) 
         for item in ids:
             for x in ids[item]:
@@ -143,6 +152,8 @@ class Clouseau:
         p = arse.ArgumentParser (description="  Clouseau: A silly git inspector", version=VERSION)
         p.add_argument('--url', '-u', required=True,  action="store", dest="url",
                         help="Fully qualified git URL (http://www.kernel.org/pub//software/scm/git/docs/git-clone.html)")
+        p.add_argument('--term', '-t', required=False, action="store", dest="term",
+                        help="Search for a single regular expression instead of every term in patterns.txt"),
         p.add_argument('--patterns', '-p', action="store", dest="patterns", type=file ,  default="clouseau/patterns/patterns.txt",
                         help="Path to list of regular expressions to use.")
         p.add_argument('--clean', '-c',  dest="clean", action="store_true", default=False, 
@@ -171,7 +182,8 @@ class Clouseau:
                  "output_format": args.output_format,
                  "dest": args.dest,
                  "patterns": args.patterns,
-                 "pathspec": args.pathspec
+                 "pathspec": args.pathspec,
+                 'term': args.term
               }
 
 

@@ -165,7 +165,8 @@ class Clouseau:
         p.add_argument('--dest', '-d', dest="dest", default="temp", 
                         help="The directory where the git repo is stored. Default: ./temp")
         p.add_argument('--pathspec', '-ps', required=False, dest="pathspec",
-                        help="The pattern of files or commits to search. Default: all.")
+                        help="The pattern of files or commits to search. Default: HEAD. " \
+                              "Specify 'all' to search the entire history")
 
         args = p.parse_args( arguments )
         url = args.url.rstrip('/')

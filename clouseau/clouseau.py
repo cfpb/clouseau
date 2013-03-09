@@ -41,8 +41,11 @@ class Clouseau:
         parser = Parser()
         terms = args['patterns'].readlines()
         terms = [term.strip() for term in terms if not term.startswith('#')]
-        #print terms
-        self.clone_repo( args['url'], args['repo_dir'] ) 
+        
+        if(not args['skip']):
+            self.clone_repo( args['url'], args['repo_dir'] ) 
+        else:
+            print blue( 'Skipping git-clone or git-pull as --skip was found on the command line.' )
         #
         # Call parser here to get intermediate data structure.
         # Then pass that to client. Client is chosen or specified on
@@ -101,8 +104,6 @@ class Clouseau:
                             for term in terms:
                                 if term == item:
                                     regx = re.compile(term, flags=re.I)
-                                    print regx
-                                    print m[1]
                                     match = regx.search( m[1] )
                                     if match:
                                         m[1] = m[1].replace( match.group(0) , orange_bg( match.group(0)  ) ) 
@@ -175,6 +176,8 @@ class Clouseau:
                         help="Search commits that occur after this date; e.g., Mar-10-2013")
         p.add_argument('--author', dest="author", required=False,
                         help="Perform searched for commits made by AUTHOR. An email address is fine.")
+        p.add_argument('--skip', '-s', dest="skip", action="store_true",
+                        help="If specifiied, skips any calls to git-clone or git-pull.")
 
         args = p.parse_args( arguments )
         url = args.url.rstrip('/')
@@ -195,7 +198,8 @@ class Clouseau:
                  "term": args.term,
                  "before": args.before,
                  "after": args.after,
-                 "author": args.author
+                 "author": args.author,
+                 "skip": args.skip
               }
 
 

@@ -75,23 +75,29 @@ class Clouseau:
 
     # Belongs in console client
     def parse_args( self, arguments ):
+        
+        _dir = os.path.dirname(__file__)
+        _default_pattern_file = 'patterns/default.txt'
+        _pattern_path = os.path.join( _dir, _default_pattern_file )
+        _temp = os.path.join( _dir, "../temp")
+
 
         #print ( os.path.abspath( 'clouseau/patterns/patterns.txt' ) )
         p = arse.ArgumentParser (description="  Clouseau: A silly git inspector", version=VERSION)
         p.add_argument('--url', '-u', required=True,  action="store", dest="url",
                         help="The fully qualified git URL (http://www.kernel.org/pub/software/scm/git/docs/git-clone.html)")
         p.add_argument('--term', '-t', required=False, action="store", dest="term",
-                        help="Search for a single regular expression instead of every term in patterns.txt"),
-        p.add_argument('--patterns', '-p', action="store", dest="patterns", type=file ,  default="clouseau/patterns/patterns.txt",
-                        help="File path to a list of regular expressions to use. See patterns/patterns.txt")
+                        help="Search for a single regular expression instead of every item in patterns/default.txt"),
+        p.add_argument('--patterns', '-p', action="store", dest="patterns", type=file ,  default=_pattern_path,
+                        help="File path to a list of regular expressions to use. See patterns/default.txt")
         p.add_argument('--clean', '-c',  dest="clean", action="store_true", default=False, 
                         help="Delete the existing git repo and re-clone")
         p.add_argument('--output', '-o', dest="output_format", required=False, 
                         help="Output formats: console, markdown, raw, html, json, csv. Default: console.")
-        p.add_argument('--output-destination', '-od', dest="output_destination", required=False, 
-                        help="Location where the output is to be stored. Default ./temp.")
-        p.add_argument('--dest', '-d', dest="dest", default="temp", 
-                        help="The directory where the git repo is to be stored. Default: ./temp")
+        p.add_argument('--output-destination', '-od', dest="output_destination", required=False, default=_temp,
+                        help="Location where the output is to be stored. Default clouseau/temp.")
+        p.add_argument('--dest', '-d', dest="dest", default=_temp, 
+                        help="The directory where the git repo is to be stored. Default: clouseau/temp")
         p.add_argument('--pathspec', '-ps', required=False, dest="pathspec",
                         help="The pattern of files or commits to search. Default: HEAD. " \
                               "Specify 'all' to search the entire history")

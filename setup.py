@@ -5,12 +5,14 @@ try:
 except ImportError:
         from distutils.core import setup
 
- config = {
+config = {
     'name': 'clouseau',
     'description': 'A silly git repo inspector',
-    'long_description':
-        os.path.join(os.path.dirname(__file__), 'README.md')).read()
-    ,
+    'long_description': None ,
+        # Needs to be restructed text
+        # os.path.join(os.path.dirname(__file__), 'README.md').read()
+
+    
     'author': 'bill shelton',
     'url': 'https://github.com/virtix/clouseau',
     'download_url': 'http://tbd.com',
@@ -18,9 +20,10 @@ except ImportError:
     'version': '0.1.0',
     'install_requires': ['jinja2','nose','nose-progressive'],
     'packages': ['clouseau','tests'],
-    'py_modules' :[]
+    'py_modules': [],
     'scripts': ['bin/clouseau'],
-    'keywords': ['git', 'pii', 'security', 'search', 'sensitive information']
+    'keywords': ['git', 'pii', 'security', 'search', 
+            'sensitive information'],
     'classifiers': [
             'Development Status :: -0 - Pre-Natal',
             'Environment ::  Console',
@@ -29,6 +32,6 @@ except ImportError:
             'Operating System :: OSX',
             'Operating System :: Linux',
     ]
- }
+}
                                  
- setup(**config) 
+setup(**config)

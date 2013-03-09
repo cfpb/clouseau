@@ -23,7 +23,7 @@
     {%- for t in data[term][item] -%}{%- if t == 'matched_lines' -%}
     {%- set lines = data[term][item] %}
     {% for line in lines['matched_lines'] %}
-      {{ line[1] }}  Line:{{ line[0]|bold -}}
+         {{ line[1] }}  Line:{{ line[0]|bold -}}
     {% endfor %}   
 
     {%- endif %}

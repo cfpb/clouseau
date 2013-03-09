@@ -1,0 +1,23 @@
+# These patterns will are not bounded by word boundaries, so they should find 
+# all derivatives.
+ass
+bitch
+blowjob
+chink
+cock
+cum
+cunt
+dick
+dyke
+fag
+fuck
+gook
+kike
+nigger
+piss
+retard
+shit
+tit
+wetback
+whore
+wop

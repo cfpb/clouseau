@@ -11,8 +11,8 @@ import json
 import argparse as arse
 import sys
 import shlex
-from jinja2 import Template, Environment, PackageLoader
-from colors import *
+from clients import *
+from clients.colors import *
 
 
 VERSION='0.1.0'
@@ -35,99 +35,24 @@ class Clouseau:
         pass
 
 
-    def main(self , _args, terms=['gov','password','pwd', 'user', 'cfpb']):
-        args = self.parse_args( _args )
-#        print args
-        parser = Parser()
-        terms = args['patterns'].readlines()
-        terms = [term.strip() for term in terms if not term.startswith('#')]
+    def main(self , _args, client):
         
+        args = self.parse_args( _args )
+
+        # create Parser
+        parser = Parser()
+       
+        terms = parser.parse_terms( args['patterns'], args['term'] )
+        # Clone repo
         if(not args['skip']):
             self.clone_repo( args['url'], args['repo_dir'] ) 
         else:
             print blue( 'Skipping git-clone or git-pull as --skip was found on the command line.' )
-        #
-        # Call parser here to get intermediate data structure.
-        # Then pass that to client. Client is chosen or specified on
-        # the command line.
-        self.render_to_console( terms, args )
         
-
-
-    # This belongs in a console client. Let's clarify the interface
-    def render_to_console(self, terms, parsed):
-        """
-        Much refactoring to do!
-            - setup Jinja and template
-            - fetch data (parse)
-            - highlight search terms
-            - render template
-            - fix/improve paging
-         
-        """
-        p = Parser()
-        env = Environment(loader=PackageLoader('clouseau', 'templates'))
-        env.filters['purple'] = purple
-        env.filters['cyan'] = cyan
-        env.filters['darkcyan'] = darkcyan
-        env.filters['blue'] = blue
-        env.filters['darkblue'] = darkblue
-        env.filters['red'] = red
-        env.filters['darkred'] = darkred
-        env.filters['green'] = green
-        env.filters['darkgreen'] = darkgreen
-        env.filters['yellow'] = yellow
-        env.filters['smoke'] = smoke
-        env.filters['bold'] = bold
-        env.filters['ok'] = ok
-        env.filters['fail'] = fail
-        env.filters['gray'] = gray
-        env.filters['orange_bg'] = orange_bg
-          
-        template = env.get_template('console.html')
+        results = parser.parse(terms, args['repo_dir'], kargs=args )
         
-
-        # Obviously, this has nothing to do with rendering!
-        if( parsed['term'] != None ):
-            terms = { parsed['term'] }
-        #This too
-
-        ids = p.parse(terms, parsed['repo_dir'], kargs=parsed )
+        client.render( terms, results )
         
-       # Highlight (Ack! This feels like the worst code I've written) 
-        for item in ids:
-            for x in ids[item]:
-                for y in ids[item][x]:
-                    if y == 'matched_lines':
-                        match = ids[item][x][y]
-                        for m in match:
-                            for term in terms:
-                                if term == item:
-                                    regx = re.compile(term, flags=re.I)
-                                    match = regx.search( m[1] )
-                                    if match:
-                                        m[1] = m[1].replace( match.group(0) , orange_bg( match.group(0)  ) ) 
-                                    # This matches only the term, not the matched expression
-                                    #m[1] = m[1].replace(term, orange_bg(term) ) 
-
-
-        
-        
-        data_to_render = template.render(data=ids)
-        #From git core 
-        try:
-            pager = subprocess.Popen(['less', '-F', '-R', '-S', '-X', '-K'], stdin=subprocess.PIPE, stdout=sys.stdout)
-            lines = data_to_render.split('\n')
-            #print lines
-            for line in lines:
-                pager.stdin.write( line.encode('utf-8') + '\n' )
-            pager.stdin.close()
-            pager.wait()
-        except KeyboardInterrupt:
-            pass
-
-
-
 
 
     def clone_repo(self, url, destination):
@@ -207,6 +132,7 @@ class Clouseau:
 
 
 
+# -----------------------------------------------------------------------------------------------
 class Parser:    
     """
     Converts git-grep's stdout to Python dictionary
@@ -214,6 +140,19 @@ class Parser:
     
     def __init__(self):
         pass
+
+    def parse_terms(self, patterns_file, single_term):
+
+        # parser. parse patterns
+        terms = patterns_file.readlines()
+    
+        if( single_term != None ):
+            terms = { single_term }
+        
+        terms = [term.strip() for term in terms if not term.startswith('#')]
+
+        return terms
+       
 
     def parse(self, terms, repo, **kargs):
         """

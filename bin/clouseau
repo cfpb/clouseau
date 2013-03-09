@@ -2,12 +2,15 @@
 # -*- codes: utf-8 -*-
 import sys
 from clouseau.clouseau import Clouseau
+from clouseau.clients.console import ConsoleClient 
+
 
 def main():
     clouseau = Clouseau()
+    client = ConsoleClient()
     # Go to bed
     args = [ a for a in sys.argv if a != 'bin/clouseau']
-    clouseau.main( args )
+    clouseau.main( _args=args, client=client )
 
 
 if __name__ == '__main__':

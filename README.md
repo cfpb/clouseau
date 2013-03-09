@@ -43,18 +43,23 @@ usage: clouseau [-h] [-v] --url URL [--term TERM] [--patterns PATTERNS]
 Clouseau: A silly git inspector
                                                 
  optional arguments:
-   -h, --help            show this help message and exit
-   -v, --version         show program's version number and exit
-   --url URL, -u URL     Fully qualified git URL (http://www.kernel.org/pub//software/scm/git/docs/git-clone.html)
-   --term TERM, -t TERM  Search for a single regular expression instead of every term in patterns.txt
+   -h, --help               show this help message and exit
+   -v, --version            show program's version number and exit
+   --url URL, -u URL        Fully qualified git URL (http://www.kernel.org/pub//software/scm/git/docs/git-clone.html)
+   --term TERM, -t TERM     Search for a single regular expression instead of every term in patterns.txt
    --patterns PATTERNS, -p PATTERNS
-                           Path to list of regular expressions to use.
-   --clean, -c             Delete the existing git repo and re-clone
+                            Path to list of regular expressions to use.
+   --clean, -c              Delete the existing git repo and re-clone
    --output OUTPUT_FORMAT, -o OUTPUT_FORMAT
-                         Output formats: console, markdown, raw, html, json
+                            Output formats: console, markdown, raw, html, json
    --output-destination OUTPUT_DESTINATION, -od OUTPUT_DESTINATION
-                        Location where the output is to be stored. Default ./temp.
+                            Location where the output is to be stored. Default ./temp.
    --dest DEST, -d DEST  The directory where the git repo is stored. Default: ./temp
    --pathspec PATHSPEC, -ps PATHSPEC
                             The pattern of files or commits to search. Default: HEAD. 
                             Specify 'all' to search the entire histtory.
+   --before BEFORE, -b BEFORE
+                            Search commits that occur prior to this date; e.g., Mar-08-2013
+    --after AFTER, -a AFTER
+                            Search commits that occur after this date; e.g., Mar-10-2013
+    --author AUTHOR         Perform searched for commits made by AUTHOR; e.g., an email address or name.

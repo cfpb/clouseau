@@ -100,7 +100,9 @@ class Clouseau:
                         for m in match:
                             for term in terms:
                                 if term == item:
-                                    regx = re.compile(term)
+                                    regx = re.compile(term, flags=re.I)
+                                    print regx
+                                    print m[1]
                                     match = regx.search( m[1] )
                                     if match:
                                         m[1] = m[1].replace( match.group(0) , orange_bg( match.group(0)  ) ) 
@@ -151,22 +153,28 @@ class Clouseau:
         #print ( os.path.abspath( 'clouseau/patterns/patterns.txt' ) )
         p = arse.ArgumentParser (description="  Clouseau: A silly git inspector", version=VERSION)
         p.add_argument('--url', '-u', required=True,  action="store", dest="url",
-                        help="Fully qualified git URL (http://www.kernel.org/pub//software/scm/git/docs/git-clone.html)")
+                        help="The fully qualified git URL (http://www.kernel.org/pub/software/scm/git/docs/git-clone.html)")
         p.add_argument('--term', '-t', required=False, action="store", dest="term",
                         help="Search for a single regular expression instead of every term in patterns.txt"),
         p.add_argument('--patterns', '-p', action="store", dest="patterns", type=file ,  default="clouseau/patterns/patterns.txt",
-                        help="Path to list of regular expressions to use.")
+                        help="File path to a list of regular expressions to use. See patterns/patterns.txt")
         p.add_argument('--clean', '-c',  dest="clean", action="store_true", default=False, 
                         help="Delete the existing git repo and re-clone")
         p.add_argument('--output', '-o', dest="output_format", required=False, 
-                        help="Output formats: console, markdown, raw, html, json")
+                        help="Output formats: console, markdown, raw, html, json, csv. Default: console.")
         p.add_argument('--output-destination', '-od', dest="output_destination", required=False, 
                         help="Location where the output is to be stored. Default ./temp.")
         p.add_argument('--dest', '-d', dest="dest", default="temp", 
-                        help="The directory where the git repo is stored. Default: ./temp")
+                        help="The directory where the git repo is to be stored. Default: ./temp")
         p.add_argument('--pathspec', '-ps', required=False, dest="pathspec",
                         help="The pattern of files or commits to search. Default: HEAD. " \
                               "Specify 'all' to search the entire history")
+        p.add_argument('--before', '-b', dest='before', required=False,
+                        help="Search commits that occur prior to this date; e.g., Mar-08-2013")
+        p.add_argument('--after', '-a', dest="after", required=False,
+                        help="Search commits that occur after this date; e.g., Mar-10-2013")
+        p.add_argument('--author', dest="author", required=False,
+                        help="Perform searched for commits made by AUTHOR. An email address is fine.")
 
         args = p.parse_args( arguments )
         url = args.url.rstrip('/')
@@ -184,7 +192,10 @@ class Clouseau:
                  "dest": args.dest,
                  "patterns": args.patterns,
                  "pathspec": args.pathspec,
-                 'term': args.term
+                 "term": args.term,
+                 "before": args.before,
+                 "after": args.after,
+                 "author": args.author
               }
 
 
@@ -223,22 +234,46 @@ class Parser:
         os.chdir( repo )
         
         path_spec =  kargs['kargs']['pathspec']
+        before = kargs['kargs']['before']
+        after = kargs['kargs']['after']
+        author = kargs['kargs']['author']
+        
+        #Default rev list
+        git_rev_cmd = ['git', 'rev-list', '--all', '--date-order']
 
         #
         # To do: use git log path_spec to get info about the commit
         # e.g., $git log 3ea013e83a0caef6fa91b5fffe1a0c374d383a90 -1 --stat
         #
 
+        if ( author != None ):
+            git_rev_cmd.append( '--author' )
+            git_rev_cmd.append( author )
+
+        if ( before != None ):
+            git_rev_cmd.append( '--before' )
+            git_rev_cmd.append( before )
+
+        if ( after != None):
+            git_rev_cmd.append( '--after' )
+            git_rev_cmd.append( after )
+
+
         if ( path_spec != None and path_spec.lower() == 'all' ):
-            git_revlist = subprocess.Popen( ['git' ,'rev-list' ,'--all', '--date-order'], \
-                                        stderr=subprocess.PIPE, stdout=subprocess.PIPE )
+            git_revlist = subprocess.Popen( git_rev_cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE )
             rev_list = git_revlist.communicate()[0]
         elif (path_spec == None):
-            git_revlist = subprocess.Popen( ['git' ,'rev-list' ,'--all', '--date-order', '-1'], \
-                                        stderr=subprocess.PIPE, stdout=subprocess.PIPE )
+            git_revlist = subprocess.Popen( git_rev_cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE )
             rev_list = git_revlist.communicate()[0]
         else:
             rev_list = path_spec
+
+       
+        if (rev_list == ''):
+            #Need to build a more informative Nothing-found iterable
+            return clouseau
+
+            
             
         term = None
 

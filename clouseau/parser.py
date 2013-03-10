@@ -36,21 +36,22 @@ class Parser:
         after = kwargs.get( 'after' )
         author = kwargs.get( 'author' )
         github_url = kwargs.get( 'github_url' )
+        git_dir = repo + '/.git'
         
         clouseau.update( {'meta' : {'github_url': github_url } } )
 
-        revlist = self.generate_revlist( pathspec, before, after, author )
+        revlist = self.generate_revlist( git_dir, pathspec, before, after, author )
               
         if (revlist == ''):
             #Need to build a more informative Nothing-found iterable
             return clouseau
         
-        clouseau = self.search( terms, revlist, clouseau )
+        clouseau = self.search( git_dir, terms, revlist, clouseau )
         return clouseau
     
     
     
-    def search( self, terms, revlist, clouseau ):
+    def search( self, git_dir, terms, revlist, clouseau ):
         # Lexemes:
         file_name_heading = re.compile( '^[0-9a-zA-Z]{40}:.+$' )
         function_name = re.compile( '^[0-9]+=' )            
@@ -60,7 +61,7 @@ class Parser:
 
         #Queue and thread this
         for term in terms:     
-            git_grep_cmd = ['git','grep','-inwa', '--heading', '--no-color', \
+            git_grep_cmd = ['git','--git-dir', git_dir , 'grep','-inwa', '--heading', '--no-color', \
                                 '--max-depth','-1', '-E', '--break', '--', term]
             cmd = git_grep_cmd + revlist.split()
 
@@ -119,10 +120,10 @@ class Parser:
     
     
     
-    def generate_revlist(self, pathspec, before, after, author):
+    def generate_revlist(self, git_dir, pathspec, before, after, author):
             rev_list = None
             #Default rev list
-            git_rev_cmd = ['git', 'rev-list', '--all', '--date-order']
+            git_rev_cmd = ['git', '--git-dir', git_dir ,'rev-list', '--all', '--date-order']
 
             if ( author != None ):
                 git_rev_cmd.append( '--author' )

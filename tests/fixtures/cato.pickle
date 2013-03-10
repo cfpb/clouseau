@@ -1,0 +1,826 @@
+(dp0
+S'password'
+p1
+(dp2
+V3e5b4926b2a0610a1adafa9fb90575b69c63cc79:pos_one_py
+p3
+(dp4
+S'src'
+p5
+S'pos_one.py'
+p6
+sS'git_log'
+p7
+(lp8
+S'commit 3e5b4926b2a0610a1adafa9fb90575b69c63cc79'
+p9
+aS'Author: bill shelton <bill@if.io>'
+p10
+aS'Date:   Sat Mar 2 07:48:44 2013 -0500'
+p11
+aS'Moving bomb around'
+p12
+asS'refspec'
+p13
+S'3e5b4926b2a0610a1adafa9fb90575b69c63cc79'
+p14
+sS'matched_lines'
+p15
+(lp16
+(lp17
+V14
+p18
+aVself.password = 'P@ssW0rd'
+p19
+aa(lp20
+V20
+p21
+aVreturn u.password
+p22
+aassV3ea013e83a0caef6fa91b5fffe1a0c374d383a90:pos_one_py
+p23
+(dp24
+g5
+S'pos_one.py'
+p25
+sg7
+(lp26
+S'commit 3ea013e83a0caef6fa91b5fffe1a0c374d383a90'
+p27
+aS'Author: bill shelton <bill@if.io>'
+p28
+aS'Date:   Sun Mar 3 16:42:15 2013 -0500'
+p29
+aS'Adding more firecrackers'
+p30
+asg13
+S'3ea013e83a0caef6fa91b5fffe1a0c374d383a90'
+p31
+sg15
+(lp32
+(lp33
+V27
+p34
+aVself.password = 'P@ssW0rd'
+p35
+aassV0360350eb4cb9f13cb2462545823cc16724df9b6:pos_one_py
+p36
+(dp37
+g5
+S'pos_one.py'
+p38
+sg7
+(lp39
+S'commit 0360350eb4cb9f13cb2462545823cc16724df9b6'
+p40
+aS'Author: bill shelton <bill@if.io>'
+p41
+aS'Date:   Sun Mar 3 15:55:56 2013 -0500'
+p42
+aS'Making line numbers dissimilar'
+p43
+asg13
+S'0360350eb4cb9f13cb2462545823cc16724df9b6'
+p44
+sg15
+(lp45
+(lp46
+V27
+p47
+aVself.password = 'P@ssW0rd'
+p48
+aassVd270477c665e56bffdc07b59fe60e6cc338f3b05:admin_py
+p49
+(dp50
+g5
+S'admin.py'
+p51
+sg7
+(lp52
+S'commit d270477c665e56bffdc07b59fe60e6cc338f3b05'
+p53
+aS'Author: bill shelton <bill@if.io>'
+p54
+aS'Date:   Sun Mar 3 15:52:05 2013 -0500'
+p55
+aS'Making line numbers dissimilar'
+p56
+asg13
+S'd270477c665e56bffdc07b59fe60e6cc338f3b05'
+p57
+sg15
+(lp58
+(lp59
+V15
+p60
+aVself.password = 'P@ssW0rd'
+p61
+aa(lp62
+V21
+p63
+aVreturn u.password
+p64
+aassVd46868fe2eb339a3379955bfd241059815fe6b9e:pos_one_py
+p65
+(dp66
+g5
+S'pos_one.py'
+p67
+sg7
+(lp68
+S'commit d46868fe2eb339a3379955bfd241059815fe6b9e'
+p69
+aS'Author: bill shelton <bill@if.io>'
+p70
+aS'Date:   Sun Mar 3 14:57:40 2013 -0500'
+p71
+aS'Adding more stuff'
+p72
+asg13
+S'd46868fe2eb339a3379955bfd241059815fe6b9e'
+p73
+sg15
+(lp74
+(lp75
+V14
+p76
+aVself.password = 'P@ssW0rd'
+p77
+aa(lp78
+V20
+p79
+aVreturn u.password
+p80
+aassV02432ae0267f5362a38da28ed55dc7ff35849972:pos_one_py
+p81
+(dp82
+g5
+S'pos_one.py'
+p83
+sg7
+(lp84
+S'commit 02432ae0267f5362a38da28ed55dc7ff35849972'
+p85
+aS'Author: bill shelton <bill@if.io>'
+p86
+aS'Date:   Sat Mar 2 07:49:24 2013 -0500'
+p87
+aS'Deleting bomb, but still should be present in history'
+p88
+asg13
+S'02432ae0267f5362a38da28ed55dc7ff35849972'
+p89
+sg15
+(lp90
+(lp91
+V14
+p92
+aVself.password = 'P@ssW0rd'
+p93
+aa(lp94
+V20
+p95
+aVreturn u.password
+p96
+aassV02432ae0267f5362a38da28ed55dc7ff35849972:admin_py
+p97
+(dp98
+g5
+S'admin.py'
+p99
+sg7
+(lp100
+S'commit 02432ae0267f5362a38da28ed55dc7ff35849972'
+p101
+aS'Author: bill shelton <bill@if.io>'
+p102
+aS'Date:   Sat Mar 2 07:49:24 2013 -0500'
+p103
+aS'Deleting bomb, but still should be present in history'
+p104
+asg13
+S'02432ae0267f5362a38da28ed55dc7ff35849972'
+p105
+sg15
+(lp106
+(lp107
+V14
+p108
+aVself.password = 'P@ssW0rd'
+p109
+aa(lp110
+V20
+p111
+aVreturn u.password
+p112
+aassV0acdead318a5d478ae3ab7d1f9a00956520d8d0f:pos_one_py
+p113
+(dp114
+g5
+S'pos_one.py'
+p115
+sg7
+(lp116
+S'commit 0acdead318a5d478ae3ab7d1f9a00956520d8d0f'
+p117
+aS'Author: bill shelton <bill@if.io>'
+p118
+aS'Date:   Sat Mar 2 07:47:54 2013 -0500'
+p119
+aS'Fix typo. Add bomb to be burried in history'
+p120
+asg13
+S'0acdead318a5d478ae3ab7d1f9a00956520d8d0f'
+p121
+sg15
+(lp122
+(lp123
+V14
+p124
+aVself.password = 'P@ssW0rd'
+p125
+aa(lp126
+V20
+p127
+aVreturn u.password
+p128
+aassV1ad2dee655d76f4aedc7044496945aa2e70e3f32:util_my_py
+p129
+(dp130
+g5
+S'util/my.py'
+p131
+sg7
+(lp132
+S'commit 1ad2dee655d76f4aedc7044496945aa2e70e3f32'
+p133
+aS'Author: bill shelton <bill@if.io>'
+p134
+aS'Date:   Sat Mar 9 14:21:42 2013 -0500'
+p135
+aS'Replacing commas with \\r'
+p136
+asg13
+S'1ad2dee655d76f4aedc7044496945aa2e70e3f32'
+p137
+sg15
+(lp138
+(lp139
+V40
+p140
+aVreturn "password"
+p141
+aassV3ea013e83a0caef6fa91b5fffe1a0c374d383a90:admin_py
+p142
+(dp143
+g5
+S'admin.py'
+p144
+sg7
+(lp145
+S'commit 3ea013e83a0caef6fa91b5fffe1a0c374d383a90'
+p146
+aS'Author: bill shelton <bill@if.io>'
+p147
+aS'Date:   Sun Mar 3 16:42:15 2013 -0500'
+p148
+aS'Adding more firecrackers'
+p149
+asg13
+S'3ea013e83a0caef6fa91b5fffe1a0c374d383a90'
+p150
+sg15
+(lp151
+(lp152
+V15
+p153
+aVself.password = 'P@ssW0rd'
+p154
+aa(lp155
+V21
+p156
+aVreturn u.password
+p157
+aassV5c0b30b007e1e916420eaa53276d817cfa4704a2:admin_py
+p158
+(dp159
+g5
+S'admin.py'
+p160
+sg7
+(lp161
+S'commit 5c0b30b007e1e916420eaa53276d817cfa4704a2'
+p162
+aS'Author: bill shelton <bill@if.io>'
+p163
+aS'Date:   Sat Mar 9 14:11:51 2013 -0500'
+p164
+aS'Adding profanity list'
+p165
+asg13
+S'5c0b30b007e1e916420eaa53276d817cfa4704a2'
+p166
+sg15
+(lp167
+(lp168
+V15
+p169
+aVself.password = 'P@ssW0rd'
+p170
+aa(lp171
+V21
+p172
+aVreturn u.password
+p173
+aassV0acdead318a5d478ae3ab7d1f9a00956520d8d0f:admin_py
+p174
+(dp175
+g5
+S'admin.py'
+p176
+sg7
+(lp177
+S'commit 0acdead318a5d478ae3ab7d1f9a00956520d8d0f'
+p178
+aS'Author: bill shelton <bill@if.io>'
+p179
+aS'Date:   Sat Mar 2 07:47:54 2013 -0500'
+p180
+aS'Fix typo. Add bomb to be burried in history'
+p181
+asg13
+S'0acdead318a5d478ae3ab7d1f9a00956520d8d0f'
+p182
+sg15
+(lp183
+(lp184
+V14
+p185
+aVself.password = 'P@ssW0rd'
+p186
+aa(lp187
+V20
+p188
+aVreturn u.password
+p189
+aassVd46868fe2eb339a3379955bfd241059815fe6b9e:admin_py
+p190
+(dp191
+g5
+S'admin.py'
+p192
+sg7
+(lp193
+S'commit d46868fe2eb339a3379955bfd241059815fe6b9e'
+p194
+aS'Author: bill shelton <bill@if.io>'
+p195
+aS'Date:   Sun Mar 3 14:57:40 2013 -0500'
+p196
+aS'Adding more stuff'
+p197
+asg13
+S'd46868fe2eb339a3379955bfd241059815fe6b9e'
+p198
+sg15
+(lp199
+(lp200
+V15
+p201
+aVself.password = 'P@ssW0rd'
+p202
+aa(lp203
+V21
+p204
+aVreturn u.password
+p205
+aassVa84f0a1474946ecb1ba1eb8fdea2b8a0e8865517:pos_one_py
+p206
+(dp207
+g5
+S'pos_one.py'
+p208
+sg7
+(lp209
+S'commit a84f0a1474946ecb1ba1eb8fdea2b8a0e8865517'
+p210
+aS'Author: bill shelton <bill@if.io>'
+p211
+aS'Date:   Fri Mar 8 07:26:52 2013 -0500'
+p212
+aS'Add email and ip address easter egg'
+p213
+asg13
+S'a84f0a1474946ecb1ba1eb8fdea2b8a0e8865517'
+p214
+sg15
+(lp215
+(lp216
+V27
+p217
+aVself.password = 'P@ssW0rd'
+p218
+aassVa1f1e9891553395ae71885a7795d0e2155c7195f:admin_py
+p219
+(dp220
+g5
+S'admin.py'
+p221
+sg7
+(lp222
+S'commit a1f1e9891553395ae71885a7795d0e2155c7195f'
+p223
+aS'Author: bill shelton <bill@if.io>'
+p224
+aS'Date:   Sat Mar 2 07:39:51 2013 -0500'
+p225
+aS'init'
+p226
+asg13
+S'a1f1e9891553395ae71885a7795d0e2155c7195f'
+p227
+sg15
+(lp228
+(lp229
+V14
+p230
+aVself.password = 'P@ssW0rd'
+p231
+aa(lp232
+V20
+p233
+aVreturn u.password
+p234
+aassVa84f0a1474946ecb1ba1eb8fdea2b8a0e8865517:util_my_py
+p235
+(dp236
+g5
+S'util/my.py'
+p237
+sg7
+(lp238
+S'commit a84f0a1474946ecb1ba1eb8fdea2b8a0e8865517'
+p239
+aS'Author: bill shelton <bill@if.io>'
+p240
+aS'Date:   Fri Mar 8 07:26:52 2013 -0500'
+p241
+aS'Add email and ip address easter egg'
+p242
+asg13
+S'a84f0a1474946ecb1ba1eb8fdea2b8a0e8865517'
+p243
+sg15
+(lp244
+(lp245
+V40
+p246
+aVreturn "password"
+p247
+aassV1ad2dee655d76f4aedc7044496945aa2e70e3f32:pos_one_py
+p248
+(dp249
+g5
+S'pos_one.py'
+p250
+sg7
+(lp251
+S'commit 1ad2dee655d76f4aedc7044496945aa2e70e3f32'
+p252
+aS'Author: bill shelton <bill@if.io>'
+p253
+aS'Date:   Sat Mar 9 14:21:42 2013 -0500'
+p254
+aS'Replacing commas with \\r'
+p255
+asg13
+S'1ad2dee655d76f4aedc7044496945aa2e70e3f32'
+p256
+sg15
+(lp257
+(lp258
+V27
+p259
+aVself.password = 'P@ssW0rd'
+p260
+aassV0360350eb4cb9f13cb2462545823cc16724df9b6:admin_py
+p261
+(dp262
+g5
+S'admin.py'
+p263
+sg7
+(lp264
+S'commit 0360350eb4cb9f13cb2462545823cc16724df9b6'
+p265
+aS'Author: bill shelton <bill@if.io>'
+p266
+aS'Date:   Sun Mar 3 15:55:56 2013 -0500'
+p267
+aS'Making line numbers dissimilar'
+p268
+asg13
+S'0360350eb4cb9f13cb2462545823cc16724df9b6'
+p269
+sg15
+(lp270
+(lp271
+V15
+p272
+aVself.password = 'P@ssW0rd'
+p273
+aa(lp274
+V21
+p275
+aVreturn u.password
+p276
+aassV3e5b4926b2a0610a1adafa9fb90575b69c63cc79:admin_py
+p277
+(dp278
+g5
+S'admin.py'
+p279
+sg7
+(lp280
+S'commit 3e5b4926b2a0610a1adafa9fb90575b69c63cc79'
+p281
+aS'Author: bill shelton <bill@if.io>'
+p282
+aS'Date:   Sat Mar 2 07:48:44 2013 -0500'
+p283
+aS'Moving bomb around'
+p284
+asg13
+S'3e5b4926b2a0610a1adafa9fb90575b69c63cc79'
+p285
+sg15
+(lp286
+(lp287
+V14
+p288
+aVself.password = 'P@ssW0rd'
+p289
+aa(lp290
+V20
+p291
+aVreturn u.password
+p292
+aassVa84f0a1474946ecb1ba1eb8fdea2b8a0e8865517:admin_py
+p293
+(dp294
+g5
+S'admin.py'
+p295
+sg7
+(lp296
+S'commit a84f0a1474946ecb1ba1eb8fdea2b8a0e8865517'
+p297
+aS'Author: bill shelton <bill@if.io>'
+p298
+aS'Date:   Fri Mar 8 07:26:52 2013 -0500'
+p299
+aS'Add email and ip address easter egg'
+p300
+asg13
+S'a84f0a1474946ecb1ba1eb8fdea2b8a0e8865517'
+p301
+sg15
+(lp302
+(lp303
+V15
+p304
+aVself.password = 'P@ssW0rd'
+p305
+aa(lp306
+V21
+p307
+aVreturn u.password
+p308
+aassVd270477c665e56bffdc07b59fe60e6cc338f3b05:pos_one_py
+p309
+(dp310
+g5
+S'pos_one.py'
+p311
+sg7
+(lp312
+S'commit d270477c665e56bffdc07b59fe60e6cc338f3b05'
+p313
+aS'Author: bill shelton <bill@if.io>'
+p314
+aS'Date:   Sun Mar 3 15:52:05 2013 -0500'
+p315
+aS'Making line numbers dissimilar'
+p316
+asg13
+S'd270477c665e56bffdc07b59fe60e6cc338f3b05'
+p317
+sg15
+(lp318
+(lp319
+V27
+p320
+aVself.password = 'P@ssW0rd'
+p321
+aa(lp322
+V33
+p323
+aVreturn u.password
+p324
+aassVa1f1e9891553395ae71885a7795d0e2155c7195f:pos_one_py
+p325
+(dp326
+g5
+S'pos_one.py'
+p327
+sg7
+(lp328
+S'commit a1f1e9891553395ae71885a7795d0e2155c7195f'
+p329
+aS'Author: bill shelton <bill@if.io>'
+p330
+aS'Date:   Sat Mar 2 07:39:51 2013 -0500'
+p331
+aS'init'
+p332
+asg13
+S'a1f1e9891553395ae71885a7795d0e2155c7195f'
+p333
+sg15
+(lp334
+(lp335
+V14
+p336
+aVself.password = 'P@ssW0rd'
+p337
+aa(lp338
+V20
+p339
+aVreturn u.password
+p340
+aassV3ea013e83a0caef6fa91b5fffe1a0c374d383a90:util_my_py
+p341
+(dp342
+g5
+S'util/my.py'
+p343
+sg7
+(lp344
+S'commit 3ea013e83a0caef6fa91b5fffe1a0c374d383a90'
+p345
+aS'Author: bill shelton <bill@if.io>'
+p346
+aS'Date:   Sun Mar 3 16:42:15 2013 -0500'
+p347
+aS'Adding more firecrackers'
+p348
+asg13
+S'3ea013e83a0caef6fa91b5fffe1a0c374d383a90'
+p349
+sg15
+(lp350
+(lp351
+V40
+p352
+aVreturn "password"
+p353
+aassV5c0b30b007e1e916420eaa53276d817cfa4704a2:pos_one_py
+p354
+(dp355
+g5
+S'pos_one.py'
+p356
+sg7
+(lp357
+S'commit 5c0b30b007e1e916420eaa53276d817cfa4704a2'
+p358
+aS'Author: bill shelton <bill@if.io>'
+p359
+aS'Date:   Sat Mar 9 14:11:51 2013 -0500'
+p360
+aS'Adding profanity list'
+p361
+asg13
+S'5c0b30b007e1e916420eaa53276d817cfa4704a2'
+p362
+sg15
+(lp363
+(lp364
+V27
+p365
+aVself.password = 'P@ssW0rd'
+p366
+aassV3e5b4926b2a0610a1adafa9fb90575b69c63cc79:bomb_1_py
+p367
+(dp368
+g5
+S'bomb_1.py'
+p369
+sg7
+(lp370
+S'commit 3e5b4926b2a0610a1adafa9fb90575b69c63cc79'
+p371
+aS'Author: bill shelton <bill@if.io>'
+p372
+aS'Date:   Sat Mar 2 07:48:44 2013 -0500'
+p373
+aS'Moving bomb around'
+p374
+asg13
+S'3e5b4926b2a0610a1adafa9fb90575b69c63cc79'
+p375
+sg15
+(lp376
+(lp377
+V3
+p378
+aVpassword = 'P@ssw0rd!'
+p379
+aassV1ad2dee655d76f4aedc7044496945aa2e70e3f32:admin_py
+p380
+(dp381
+g5
+S'admin.py'
+p382
+sg7
+(lp383
+S'commit 1ad2dee655d76f4aedc7044496945aa2e70e3f32'
+p384
+aS'Author: bill shelton <bill@if.io>'
+p385
+aS'Date:   Sat Mar 9 14:21:42 2013 -0500'
+p386
+aS'Replacing commas with \\r'
+p387
+asg13
+S'1ad2dee655d76f4aedc7044496945aa2e70e3f32'
+p388
+sg15
+(lp389
+(lp390
+V15
+p391
+aVself.password = 'P@ssW0rd'
+p392
+aa(lp393
+V21
+p394
+aVreturn u.password
+p395
+aassV5c0b30b007e1e916420eaa53276d817cfa4704a2:util_my_py
+p396
+(dp397
+g5
+S'util/my.py'
+p398
+sg7
+(lp399
+S'commit 5c0b30b007e1e916420eaa53276d817cfa4704a2'
+p400
+aS'Author: bill shelton <bill@if.io>'
+p401
+aS'Date:   Sat Mar 9 14:11:51 2013 -0500'
+p402
+aS'Adding profanity list'
+p403
+asg13
+S'5c0b30b007e1e916420eaa53276d817cfa4704a2'
+p404
+sg15
+(lp405
+(lp406
+V40
+p407
+aVreturn "password"
+p408
+aassV0acdead318a5d478ae3ab7d1f9a00956520d8d0f:buried_in_history_py
+p409
+(dp410
+g5
+S'buried_in_history.py'
+p411
+sg7
+(lp412
+S'commit 0acdead318a5d478ae3ab7d1f9a00956520d8d0f'
+p413
+aS'Author: bill shelton <bill@if.io>'
+p414
+aS'Date:   Sat Mar 2 07:47:54 2013 -0500'
+p415
+aS'Fix typo. Add bomb to be burried in history'
+p416
+asg13
+S'0acdead318a5d478ae3ab7d1f9a00956520d8d0f'
+p417
+sg15
+(lp418
+(lp419
+g378
+aVpassword = 'P@ssw0rd!'
+p420
+aasssS'meta'
+p421
+(dp422
+S'github_url'
+p423
+Nss.

@@ -65,11 +65,10 @@ class ConsoleClient(AbstractClient):
         
         
         data_to_render = template.render(data=data)
-        #From git core 
+        
         try:
             pager = subprocess.Popen(['less', '-F', '-R', '-S', '-X', '-K'], stdin=subprocess.PIPE, stdout=sys.stdout)
             lines = data_to_render.split('\n')
-            #print lines
             for line in lines:
                 pager.stdin.write( line.encode('utf-8') + '\n' )
             pager.stdin.close()

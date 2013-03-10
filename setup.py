@@ -17,7 +17,7 @@ config = {
     'url': 'https://github.com/virtix/clouseau',
     'download_url': 'http://tbd.com',
     'author_email': 'bill@if.io',
-    'version': '0.1.0',
+    'version': '0.2.0',
     'install_requires': ['jinja2','nose','nose-progressive'],
     'packages': ['clouseau','tests'],
     'py_modules': [],

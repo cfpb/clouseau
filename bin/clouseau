@@ -8,9 +8,8 @@ from clouseau.clients.console import ConsoleClient
 def main():
     clouseau = Clouseau()
     client = ConsoleClient()
-    # Go to bed
-    args = [ a for a in sys.argv if a != 'bin/clouseau']
-    clouseau.main( _args=args, client=client )
+    sys.argv.pop(0)
+    clouseau.main( _args=sys.argv, client=client )
 
 
 if __name__ == '__main__':

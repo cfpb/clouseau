@@ -1,32 +1,19 @@
 import os
 from nose.tools import *
-from clouseau.clouseau import Parser, Node, Clouseau
+from clouseau.clouseau import Clouseau
+from clouseau.parser import Parser
 from clouseau.colors import *
+from clouseau.clients.console import ConsoleClient
 from jinja2 import Template, Environment, PackageLoader
 
 
 
-def jinja_test():
-    terms = [ 'password', 'gov']
-    args = ['-u', 'git://github.com/virtix/cato.git']
-    parsed = clouseau.parse_args( args )
-    #Requires Cato to be present
-    clouseau.render_to_console( terms, parsed )
+def search_test():
+    ok_(False, "Fix me")
 
 
-
-
-
-def template_2_console_test():
-    p = Parser()
-    terms = ['password']
-    args = ['-u', 'git://github.com/virtix/cato.git']
-    parsed = clouseau.parse_args( args )
-    ids = p.parse(terms, parsed['repo_dir'] )
-    template = Template( "Hello, {{you}}." )
-    print template.render(you= cyan("honey bunny"))
-
-
+def generate_revlist_test():
+    ok_(False , "Fix me")
 
 
 def parser_should_build_data_structure_for_each_term_test():
@@ -34,41 +21,34 @@ def parser_should_build_data_structure_for_each_term_test():
     terms = ['password']
     args = ['-u', 'git://github.com/virtix/cato.git']
     parsed = clouseau.parse_args( args )
-    print darkcyan( parsed )
+    #print smoke( parsed )
     ids = p.parse(terms, parsed['repo_dir'] )
-    print cyan( ids )
-
-
-
-
-def clouseau_should_fetch_git_repo_test():
-    """
-    If repr doesn't exist, clone, it exists, pull
-    """
-    args = ['-u', 'git://github.com/virtix/cato.git']
-    parsed = clouseau.parse_args( args )
-    results = clouseau.clone_repo( parsed['url'], parsed['repo_dir'] )
-    ok_(results)
-
-    
-
+    eq_(2, len(ids) , "This should have 2 keys: term (password) and meta" )
 
 
 
 def clouseau_should_parse_args_test():
     args = ['-u', 'git@github.com/foo/baz.git']
     parsed = clouseau.parse_args( args )
-    #print parsed
+    eq_ ('git@github.com/foo/baz', parsed['github_url'] )
     eq_( 'baz.git', parsed['repo'] )
-    eq_( 'temp/baz', parsed['repo_dir'] )
-    eq_( 'baz', parsed['repo_name'] )
-    #ok_(False, "Needed to see how to test this. Failing intentionally because it needs work.")
 
 
-
-
-def parser_test():
+def pattern_parser_test():
     parser = Parser()
+    patterns = open( 'clouseau/patterns/default.txt', 'r' )
+    terms = parser.parse_terms( patterns_file=patterns, single_term=None )
+    ok_( len(terms) > 5 )
+
+
+
+# Fetched some pre-generated data
+def get_results():
+    import pickle
+    data = open( 'tests/fixtures/cato.pickle', 'r' )
+    ids = pickle.load( data ) 
+    eq_(2, len(ids) , "This guard condition should have 2 keys: term (password) and meta" )
+    return ids
 
 
 
@@ -78,7 +58,6 @@ def smoke_test():
     """
     #print "I am what I am and I am passing"
     parser = Parser()
-    node = Node('function','foo bar baz', None)
     clouseau = Clouseau()
     ok_(True)
 

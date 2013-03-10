@@ -5,26 +5,16 @@
 #
 #
 import os
-import subprocess
-import re
-import json
 import argparse as arse
 import sys
-import shlex
+import subprocess
 from clients import *
 from clients.colors import *
+from parser import Parser
 
 
-VERSION='0.1.0'
+VERSION='0.2.0'
 
-
-#
-# To Do: Make Clouseau the API. Decouple console client.
-# Clouseau accepts arguments and returns a predictable data structure.
-# 
-# Perhaps Clouseau accepts a client with a known interface; e.g., client.render() or
-# client.render_to( location )
-#
 class Clouseau:
     """
     Wrap and delegate
@@ -49,7 +39,8 @@ class Clouseau:
         else:
             print blue( 'Skipping git-clone or git-pull as --skip was found on the command line.' )
         
-        results = parser.parse(terms, args['repo_dir'], kargs=args )
+        results = parser.parse( terms=terms, repo=args['repo_dir'], pathspec=args['pathspec'], 
+                before=args['before'], after=args['after'], author=args['author'], github_url=args['github_url'])
         
         client.render( terms, results )
         
@@ -137,176 +128,3 @@ class Clouseau:
 
 
 
-
-# -----------------------------------------------------------------------------------------------
-class Parser:    
-    """
-    Converts git-grep's stdout to Python dictionary
-    """
-    
-    def __init__(self):
-        pass
-
-    def parse_terms(self, patterns_file, single_term):
-
-        # parser. parse patterns
-        terms = patterns_file.readlines()
-    
-        if( single_term != None ):
-            terms = { single_term }
-        
-        terms = [term.strip() for term in terms if not term.startswith('#')]
-
-        return terms
-       
-
-    def parse(self, terms, repo, **kargs):
-        """
-        For each term in @terms perform a search of the git repo and store search results
-        (if any) in an iterable.
-        """
-        #print kargs['kargs']
-
-        # Lexemes:
-        file_name_heading = re.compile( '^[0-9a-zA-Z]{40}:.+$' )
-        function_name = re.compile( '^[0-9]+=' )            
-        matched_line = re.compile( '^[0-9]+:' ) 
-        
-        # Main results data structure
-        clouseau = {}
-
-        clouseau.update( {'meta' : {'github_url': kargs['kargs']['github_url']} } )
-        #print clouseau
-
-        # - A collection of nodes
-        #ast_root = Node( type='root', value=None, parent=None )
-        os.chdir( repo )
-        
-        path_spec =  kargs['kargs']['pathspec']
-        before = kargs['kargs']['before']
-        after = kargs['kargs']['after']
-        author = kargs['kargs']['author']
-        
-        #Default rev list
-        git_rev_cmd = ['git', 'rev-list', '--all', '--date-order']
-
-        #
-        # To do: use git log path_spec to get info about the commit
-        # e.g., $git log 3ea013e83a0caef6fa91b5fffe1a0c374d383a90 -1 --stat
-        #
-
-        if ( author != None ):
-            git_rev_cmd.append( '--author' )
-            git_rev_cmd.append( author )
-
-        if ( before != None ):
-            git_rev_cmd.append( '--before' )
-            git_rev_cmd.append( before )
-
-        if ( after != None):
-            git_rev_cmd.append( '--after' )
-            git_rev_cmd.append( after )
-
-
-        if ( path_spec != None and path_spec.lower() == 'all' ):
-            git_revlist = subprocess.Popen( git_rev_cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE )
-            rev_list = git_revlist.communicate()[0]
-        elif (path_spec == None):
-            git_revlist = subprocess.Popen( git_rev_cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE )
-            rev_list = git_revlist.communicate()[0]
-        else:
-            rev_list = path_spec
-
-       
-        if (rev_list == ''):
-            #Need to build a more informative Nothing-found iterable
-            return clouseau
-
-            
-            
-        term = None
-
-        for term in terms:
-            
-            git_grep_cmd = ['git','grep','-inwa', '--heading', '--no-color', \
-                                '--max-depth','-1', '-E', '--break', '--', term]
-            
-            cmd = git_grep_cmd + rev_list.split()
-
-            #print cmd
-
-            git_grep = subprocess.Popen( cmd , stderr=subprocess.PIPE, 
-                                         stdout=subprocess.PIPE)
-            # Maybe write it all to a file first, aka Raw.log, and then parse that, which could 
-            # allow for multiple passes
-
-            (out,err) = git_grep.communicate()
-        
-            clouseau.update( {term: {}}  )
-
-            for line in out.split('\n'):
-                # We don't  know how a lot of the data is encoded, so make sure it's utf-8 before 
-                # processing
-                if line == '':
-                    continue
-                try:
-                    line = unicode( line, 'utf-8' ) 
-                except UnicodeDecodeError:
-                    line = unicode( line, 'latin-1' ) 
-                
-
-                if file_name_heading.match( line ):
-                    title = line.split(':', 1)[1]
-                    title = line.replace('/','_')
-                    title = title.replace('.','_').strip()
-                    _src = line.strip().encode('utf-8')
-                    _srca = _src.split(':', 1)
-                    clouseau[term][title] = {'src' : _srca[1] }
-                    clouseau[term][title]['refspec'] =  _srca[0]
-                    git_log_cmd = subprocess.Popen( ['git', 'log', _srca[0] , '-1'],\
-                            stderr=subprocess.PIPE, stdout=subprocess.PIPE )
-                    git_log = git_log_cmd.communicate()[0]
-                    clouseau[term][title]['git_log'] = [ x.strip() for x in git_log.split('\n') if x != '' ]
-                    #clouseau[term][title] = {'ref' : _srca[0] }
-                    clouseau[term][title]['matched_lines'] = []
-                    continue
-
-                if function_name.match( line ):
-                    function = line.split('=')
-                    clouseau[term][title].update( {'function': function} ) 
-                    #Node( type='function', value=function, parent=node )
-                    clouseau[term][title].update( {'matches': len(function)} )
-                    continue
-
-                if matched_line.match( line ):
-                    matched = line.split(':' , 1)
-                    matched[0] = matched[0].strip()
-                    matched[1] = matched[1].strip()
-                    clouseau[term][title]['matched_lines'].append( matched )
-                    continue
-                    #Node( type='matched_line', value=line.split(':',1), parent=node )
-
-        return clouseau
-
-
-
-
-
-
-
-
-class Node:
-    """
-    Placeholder ....
-    """
-    
-    def __init__(self,type,value,parent):
-        self.type = type
-        self.value = value
-        self.parent = parent
-
-    def visit(self, _lambda):
-        """
-        Recursivley visits this node and all children 
-        """
-        pass

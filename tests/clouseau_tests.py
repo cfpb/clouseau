@@ -9,7 +9,16 @@ from jinja2 import Template, Environment, PackageLoader
 
 
 def search_test():
-    ok_(False, "Fix me")
+    p = Parser()
+    terms = ['password[ ]*=[ ]*.+', 'foo']
+    #terms = ['foo']
+    args = ['-u', 'git://github.com/virtix/cato.git', '--skip']
+    parsed = clouseau.parse_args( args )
+    #print smoke( parsed )
+    ids = p.parse(terms, parsed['repo_dir'] )
+    #print ids
+    #eq_(3, len(ids) , "This should have 3 keys: term (password) and meta" )
+
 
 
 def generate_revlist_test():

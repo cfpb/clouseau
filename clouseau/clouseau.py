@@ -41,7 +41,8 @@ class Clouseau:
         
         results = parser.parse( terms=terms, repo=args['repo_dir'], pathspec=args['pathspec'], 
                 before=args['before'], after=args['after'], author=args['author'], github_url=args['github_url'])
-        
+       
+        print results
         client.render( terms, results )
         
 

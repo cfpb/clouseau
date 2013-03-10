@@ -39,7 +39,7 @@ class Clouseau:
         else:
             print blue( 'Skipping git-clone or git-pull as --skip was found on the command line.' )
         
-        results = parser.parse( terms=terms, repo=args['repo_dir'], pathspec=args['pathspec'], 
+        results = parser.parse( terms=terms, repo=args['repo_dir'], revlist=args['revlist'] ,  
                 before=args['before'], after=args['after'], author=args['author'], github_url=args['github_url'])
         
         client.render( terms, results )
@@ -89,9 +89,9 @@ class Clouseau:
                         help="Location where the output is to be stored. Default clouseau/temp.")
         p.add_argument('--dest', '-d', dest="dest", default=_temp, 
                         help="The directory where the git repo is to be stored. Default: clouseau/temp")
-        p.add_argument('--pathspec', '-ps', required=False, dest="pathspec",
-                        help="The pattern of files or commits to search. Default: HEAD. " \
-                              "Specify 'all' to search the entire history")
+        p.add_argument('--revlist', '-rl', required=False, dest="revlist",
+                        help="A space-delimted list of revisions (commits) to search. Defaults to HEAD. Specify 'all'" \
+                             " to search the entire history.")
         p.add_argument('--before', '-b', dest='before', required=False,
                         help="Search commits that occur prior to this date; e.g., Mar-08-2013")
         p.add_argument('--after', '-a', dest="after", required=False,
@@ -116,7 +116,7 @@ class Clouseau:
                  "output_format": args.output_format,
                  "dest": args.dest,
                  "patterns": args.patterns,
-                 "pathspec": args.pathspec,
+                 "revlist": args.revlist,
                  "term": args.term,
                  "before": args.before,
                  "after": args.after,

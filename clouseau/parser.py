@@ -31,7 +31,7 @@ class Parser:
         # Main results data structure
         clouseau = {}
 
-        pathspec =  kwargs.get( 'pathspec' )
+        revlist = kwargs.get( 'revlist' )
         before = kwargs.get( 'before' )
         after = kwargs.get( 'after' )
         author = kwargs.get( 'author' )
@@ -40,13 +40,13 @@ class Parser:
         
         clouseau.update( {'meta' : {'github_url': github_url } } )
 
-        revlist = self.generate_revlist( git_dir, pathspec, before, after, author )
+        revs = self.generate_revlist( git_dir, revlist, before, after, author )
               
-        if (revlist == ''):
+        if (revs == ''):
             #Need to build a more informative Nothing-found iterable
             return clouseau
         
-        clouseau = self.search( git_dir, terms, revlist, clouseau )
+        clouseau = self.search( git_dir, terms, revs, clouseau )
         return clouseau
     
     
@@ -91,7 +91,7 @@ class Parser:
                     _srca = _src.split(':', 1)
                     clouseau[term][title] = {'src' : _srca[1] }
                     clouseau[term][title]['refspec'] =  _srca[0]
-                    git_log_cmd = subprocess.Popen( ['git', 'log', _srca[0] , '-1'],\
+                    git_log_cmd = subprocess.Popen( ['git', '--git-dir', git_dir, 'log', _srca[0] , '-1'],\
                             stderr=subprocess.PIPE, stdout=subprocess.PIPE )
                     git_log = git_log_cmd.communicate()[0]
                     clouseau[term][title]['git_log'] = [ x.strip() for x in git_log.split('\n') if x != '' ]
@@ -120,10 +120,10 @@ class Parser:
     
     
     
-    def generate_revlist(self, git_dir, pathspec, before, after, author):
+    def generate_revlist(self, git_dir, revlist, before, after, author):
             rev_list = None
             #Default rev list
-            git_rev_cmd = ['git', '--git-dir', git_dir ,'rev-list', '--all', '--date-order']
+            git_rev_cmd = ['git', '--git-dir', git_dir ,'rev-list', '--all', '--date-order' , '-1']
 
             if ( author != None ):
                 git_rev_cmd.append( '--author' )
@@ -135,17 +135,25 @@ class Parser:
             if ( after != None):
                 git_rev_cmd.append( '--after' )
                 git_rev_cmd.append( after )
+
     
             # ---
-            if ( pathspec != None and pathspec.lower() == 'all' ):
+            if ( revlist != None ) :
+                git_rev_cmd.pop(6)
+                if ( revlist.lower() == 'all' ):
+                    git_revlist = subprocess.Popen( git_rev_cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE )
+                    rev_list = git_revlist.communicate()[0]
+                else:
+                    git_rev_cmd[4] = revlist
+                    git_revlist = subprocess.Popen( git_rev_cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE )
+                    rev_list = git_revlist.communicate()[0]
+            elif (revlist == None):  #Just grab the most recent revision
                 git_revlist = subprocess.Popen( git_rev_cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE )
                 rev_list = git_revlist.communicate()[0]
-            elif (pathspec == None):
-                git_revlist = subprocess.Popen( git_rev_cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE )
-                rev_list = git_revlist.communicate()[0]
-            else:
-                rev_list = pathspec
 
+            
+            #print git_rev_cmd
+            #print rev_list
 
             return rev_list
 

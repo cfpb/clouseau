@@ -72,8 +72,6 @@ class Clouseau:
         _pattern_path = os.path.join( _dir, _default_pattern_file )
         _temp = os.path.join( _dir, "../temp")
 
-
-        #print ( os.path.abspath( 'clouseau/patterns/patterns.txt' ) )
         p = arse.ArgumentParser (description="  Clouseau: A silly git inspector", version=VERSION)
         p.add_argument('--url', '-u', required=True,  action="store", dest="url",
                         help="The fully qualified git URL (http://www.kernel.org/pub/software/scm/git/docs/git-clone.html)")

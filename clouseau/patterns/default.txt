@@ -16,5 +16,7 @@ cfpb
 [A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}
 #-Credit card
 [0-9]{12}(?:[0-9]{3})?
+# Private key
+-----BEGIN RSA PRIVATE KEY-----.*-----END RSA PRIVATE KEY-----
 
 

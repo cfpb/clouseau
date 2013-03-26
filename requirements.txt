@@ -1,3 +1,16 @@
-jinja2
-nose
-nose-progressive
+Jinja2==2.6
+SQLAlchemy==0.8.0
+blessings==1.5
+-e git+git@github.com:virtix/clouseau.git@3147ec568bc4572834eaeabb9f454e2a8a3c6571#egg=clouseau-dev
+distribute==0.6.32
+logilab-astng==0.24.2
+logilab-common==0.59.0
+nose==1.2.1
+nose-progressive==1.4
+pep8==1.4.5
+pylint==0.27.0
+stevedore==0.7.2
+virtualenv==1.8.4
+virtualenv-clone==0.2.4
+virtualenvwrapper==3.6
+wsgiref==0.1.2

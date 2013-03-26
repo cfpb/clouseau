@@ -70,7 +70,7 @@ class Clouseau:
         _dir = os.path.dirname(__file__)
         _default_pattern_file = 'patterns/default.txt'
         _pattern_path = os.path.join( _dir, _default_pattern_file )
-        _temp = os.path.join( _dir, "../temp")
+        _temp = os.path.join( _dir, "../.clouseau")
 
         p = arse.ArgumentParser (description="  Clouseau: A silly git inspector", version=VERSION)
         p.add_argument('--url', '-u', required=True,  action="store", dest="url",

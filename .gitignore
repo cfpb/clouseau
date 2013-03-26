@@ -5,4 +5,4 @@
 *.swp
 tmp
 temp
-_temp
+\.clouseau

@@ -18,24 +18,21 @@ specified on the command line.
 
 1. Clone this repository somewhere you can execute Python code.
 
-2. From the project root, set up a virtualenv:
+1. From the project root, set up a virtualenv:
+   ```sh
+   virtualenv --no-site-packages --distribute venv    # creates the virtualenv named "venv"
+   source venv/bin/activate                           # activates (places you in) the virtualenv
+   ```
 
-```sh
-virtualenv --no-site-packages --distribute venv    # creates the virtualenv named "venv"
-source venv/bin/activate                           # activates (places you in) the virtualenv
-```
-
-3. Install the requirements:
-
-```sh
-pip install -r requirements.txt
-```
+1. Install the requirements:
+   ```sh
+   pip install -r requirements.txt
+   ```
 
 4. Tell Python to also look in this directory for libraries.
-
-```sh
-export PYTHONPATH=$PYTHONPATH:.
-```
+   ```sh
+   export PYTHONPATH=$PYTHONPATH:.
+   ```
 
 And that's it! Now follow the usage instructions below.
 

@@ -1,3 +1,5 @@
+*.clouseau
+*.swn
 *.egg-info
 *.pyc
 *.swo

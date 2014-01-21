@@ -18,7 +18,7 @@ specified on the command line.
 
 1. Clone this repository somewhere you can execute Python code.
 
-1. From the project root, set up a virtualenv:
+1. From the cloned Clouseau project root, set up a virtualenv:
    ```sh
    virtualenv --no-site-packages --distribute venv    # creates the virtualenv named "venv"
    source venv/bin/activate                           # activates (places you in) the virtualenv

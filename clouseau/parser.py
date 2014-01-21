@@ -52,6 +52,13 @@ class Parser:
     
     
     def search( self, git_dir, terms, revlist, clouseau ):
+        """
+        Given a git project directory, a set of search terms, a git revlist, 
+        and a python dictionary data structure, search the git repo, 
+        adding search results to a python dictionary (aka, clouseau) and return 
+        that dictionary.  This common data structure can then be used by the 
+        client to output different formats (console, json, html, csv, etc)
+        """
         # Lexemes:
         file_name_heading = re.compile( '^[0-9a-zA-Z]{40}:.+$' )
         function_name = re.compile( '^[0-9]+=' )            

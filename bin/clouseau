@@ -3,11 +3,12 @@
 import sys
 from clouseau.clouseau import Clouseau
 from clouseau.clients.console import ConsoleClient 
+from clouseau.clients.csv import CSVClient
 
 
 def main():
-    clouseau = Clouseau()
     client = ConsoleClient()
+    clouseau = Clouseau()
     sys.argv.pop(0)
     clouseau.main( _args=sys.argv, client=client )
 

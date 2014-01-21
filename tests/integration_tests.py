@@ -17,7 +17,7 @@ def console_client_test():
     parsed = clouseau.parse_args( args )
     ids = parser.parse( terms=terms, repo=parsed['repo_dir'], pathspec=parsed['pathspec'], 
                         before=parsed['before'], after=parsed['after'], author=parsed['author'], 
-                        github_url=parsed['github_url'])
+                        github_url=parsed['github_url'],skip=True)
         
     #ids = p.parse(terms, parsed['repo_dir'] )
     #print ids

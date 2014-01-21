@@ -1,0 +1,27 @@
+Clouseau found the following for{{ data['meta']['github_url']}}
+
+search_term, file_name, github_url, blame, date, log, matched_text, line_number
+{% for term in data if term != 'meta' %}
+{%- for item in data[term]  %}
+{{ term }},{{ data[term][item]['src'] }},{{ data['meta']['github_url'] ~
+"/commit/" ~ data[term][item]['refspec'] }},{{
+data[term][item]['git_log'][1] }},{{ data[term][item]['git_log'][2] }},{{
+data[term][item]['git_log'][3] }},
+{%- for t in data[term][item] -%}{%- if t == 'matched_lines' -%}
+{%- set lines = data[term][item] %}
+{% for line in lines['matched_lines'] %}
+{{ line[1] }}, {{ line[0] -}}
+{% endfor %}   
+{%- endif %}
+{%- endfor %}   
+{% else %}
+{{term}},{{data[term][item['src']]}} No match.
+{%- endfor %}
+
+{%- endfor %}
+
+
+What do you do when you find something that should\'t be there?
+https://help.github.com/articles/remove-sensitive-data
+
+

@@ -17,13 +17,14 @@ def test_this():
 def test_load_pickle():
     f = open('tests/fixtures/cato.pickle')
     c = pickle.load(f)
-    #pprint (c,width=2)
+    pprint (c,width=2)
 
 
 def test_load_ClouseauDb():
     cdb = ClouseauDb()
     ok_ (isinstance( cdb, types.InstanceType ) , "Make sure you're returning an object.")
     eq_ ( cdb.__class__, ClouseauDb , "Changed class name or location?")
+
 
 def test_clouseau_db_config():
     cdb = ClouseauDb( db_name='foo_db.sqlite' )

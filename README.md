@@ -30,6 +30,9 @@ Search the entire history for a single term (quite slow and needs threading or m
 Search the current revision using a different pattern file:
 ```$ clouseau -u https://github.com/virtix/cato.git --patterns ~/projects/patterns/profanity.txt```
 
+Search the current revision using multiple pattern files:
+```$ clouseau -u https://github.com/virtix/cato.git --patterns ~/projects/patterns/profanity.txt,~/projects/patterns/custom_pattern.txt```
+
 Skip either cloning or pulling and just scan:
 ```$ clouseau -u https://github.com/virtix/cato.git --skip```
 

@@ -57,9 +57,9 @@ class ConsoleClient(AbstractClient):
                                     regx = re.compile(term, flags=re.I)
                                     match = regx.search( m[1] )
                                     if match:
-                                        m[1] = m[1].replace( match.group(0) , orange_bg( match.group(0)  ) ) 
+                                        m[1] = m[1].replace( match.group(0) , orange_bg( match.group(0)  ) )
                                     # This matches only the term, not the matched expression
-                                    #m[1] = m[1].replace(term, orange_bg(term) ) 
+                                    #m[1] = m[1].replace(term, orange_bg(term) )
 
 
         

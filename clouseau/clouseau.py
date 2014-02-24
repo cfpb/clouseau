@@ -97,7 +97,7 @@ class Clouseau:
         p.add_argument('--author', dest="author", required=False,
                         help="Perform searched for commits made by AUTHOR. An email address is fine.")
         p.add_argument('--skip', '-s', dest="skip", action="store_true",
-                        help="If specifiied, skips any calls to git-clone or git-pull.")
+                        help="If specified, skips any calls to git-clone or git-pull. Useful in combination with --dest to test a local git repo")
 
         args = p.parse_args( arguments )
         url = args.url.rstrip('/')

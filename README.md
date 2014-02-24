@@ -112,3 +112,11 @@ Clouseau: A silly git inspector
                             Search commits that occur after this date; e.g., Mar-10-2013
     --author AUTHOR         Perform searched for commits made by AUTHOR; e.g., an email address or name.
     --skip   SKIP           If specified, skips any calls to git-clone or git-pull.
+
+### Minimal Output
+
+For continuous integration environments, minimal output may be desirable. In that case, use `bin/clouseau_thin`:
+
+`$ bin/clouseau_thin -u [git_url] ...`
+
+`clouseau_thin` supports all clouseau options and differs only in the verbosity and attractiveness of its output.

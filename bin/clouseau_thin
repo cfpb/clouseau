@@ -1,0 +1,11 @@
+#! /usr/bin/ENV python
+# -*- codes: utf-8 -*-
+import sys
+from clouseau.clouseau import Clouseau
+from clouseau.clients.console_thin import ConsoleThinClient
+
+if __name__ == '__main__':
+    clouseau = Clouseau()
+    client = ConsoleThinClient()
+    sys.argv.pop(0)
+    clouseau.main( _args=sys.argv, client=client )

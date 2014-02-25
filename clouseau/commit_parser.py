@@ -23,10 +23,9 @@ class CommitParser:
         git_dir = repo + '/.git'
 
         #TODO: get proper commit range, etc. For now... show last commit
-        output = self.get_commit(git_dir, revlist)
-
-        clouseau = self.parse_commit( terms, output, clouseau_model )
-        return clouseau
+        for rev in revlist.split(' '):
+            output = self.get_commit(git_dir, rev)
+            self.parse_commit( terms, output, clouseau_model )
 
     def get_commit(self, git_dir, commit):
         git_show_cmd = ['git', 'show', commit, '--no-color', '--unified=0']

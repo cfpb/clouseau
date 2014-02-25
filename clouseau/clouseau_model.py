@@ -4,7 +4,8 @@
 # Encapsulate the clouseau structure to simplify use in different parsers
 #
 #
-from pprint import pformat
+import pprint
+import re
 
 class ClouseauModel(object):
 
@@ -12,12 +13,11 @@ class ClouseauModel(object):
 
     def __init__(self, github_url, terms):
         self.model['meta']['github_url'] = github_url
-        for t in terms:
-            self.model[t] = {}
+        for term in terms:
+            self.model[term] = {}
 
     def start_match(self, term, refspec, filename, git_log):
-        #TODO: replace with regex replace on all non-alpha-numeric
-        title = refspec + ":" + filename.replace("/", "_").replace(".", "_").replace(" ", "_")
+        title = refspec + ":" + re.sub('[^0-9a-zA-Z]+', '_', filename) # title will look like sha1:directory_file_ext, eg d1859009afc7e48506ec025a07f4f90ce4c5a210:somedir_hooktest_txt'
         if not title in self.model[term]:
             self.model[term][title] = {'src': filename, 'refspec': refspec, 'git_log': git_log, 'matched_lines': []}
         return title
@@ -26,7 +26,7 @@ class ClouseauModel(object):
         self.model[term][title]['matched_lines'].append([line_number, match_text])
 
     def __str__(self):
-        return pformat(self.model)
+        return pprint.pformat(self.model)
 
     def __repr__(self):
         return self.__str__()

@@ -34,9 +34,12 @@ class CommitParser:
         Get the stdout of a call to `git show @commit --no-color --unified=0` for the directory specified by @git_dir
         """
         git_show_cmd = ['git', 'show', commit, '--no-color', '--unified=0']
-        git_show = subprocess.Popen(git_show_cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE, cwd=git_dir)
+
+        git_show = subprocess.Popen(git_show_cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE) # , cwd=git_dir
         (out,err) = git_show.communicate()
-        #TODO: deal with err. Till then... YOLO
+        if err:
+            print "ERROR running git command [%s]: %s" % (git_show_cmd, err)
+
         return out
 
 

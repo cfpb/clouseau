@@ -6,11 +6,15 @@
 #
 import os
 import argparse as arse
+import pprint
 import sys
 import subprocess
 from clients import *
 from clients.colors import *
 from parser import Parser
+from commit_parser import CommitParser
+from terms_collector import TermsCollector
+from clouseau_model import ClouseauModel
 
 
 VERSION='0.2.0'
@@ -29,21 +33,27 @@ class Clouseau:
         
         args = self.parse_args( _args )
 
-        # create Parser
-        parser = Parser()
-       
-        terms = parser.parse_terms( args['patterns'], args['term'] )
+        collector = TermsCollector()
+        terms = collector.collect_terms( args['patterns'], args['term'] )
+        model = ClouseauModel(args['github_url'], terms)
+
         # Clone repo
         if(not args['skip']):
             self.clone_repo( args['url'], args['repo_dir'] ) 
         else:
             print blue( 'Skipping git-clone or git-pull as --skip was found on the command line.' )
-        
-        results = parser.parse( terms=terms, repo=args['repo_dir'], revlist=args['revlist'] ,  
-                before=args['before'], after=args['after'], author=args['author'], github_url=args['github_url'])
-        
+
+        if args['revlist'] != None and args['revlist'] != 'all':
+            parser = CommitParser()
+            parser.parse(terms=terms, repo=args['repo_dir'], revlist=args['revlist'], clouseau_model=model, github_url=args['github_url'])
+            results = model.model
+        else:
+            parser = Parser()
+            results = parser.parse( terms=terms, repo=args['repo_dir'], revlist=args['revlist'] ,
+                    before=args['before'], after=args['after'], author=args['author'], github_url=args['github_url'])
+
+        # pprint.pprint(results)
         client.render( terms, results )
-        
 
 
     def clone_repo(self, url, destination):

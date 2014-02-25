@@ -1,8 +1,11 @@
-import os
+import os, pprint
 from nose.tools import *
 from clouseau.clouseau import Clouseau
 from clouseau.parser import Parser
-from clouseau.colors import *
+from clouseau.commit_parser import CommitParser
+from clouseau.terms_collector import TermsCollector
+from clouseau.clouseau_model import ClouseauModel
+from clouseau.clients.colors import *
 from clouseau.clients.console import ConsoleClient
 from jinja2 import Template, Environment, PackageLoader
 
@@ -40,7 +43,30 @@ def pattern_parser_test():
     terms = parser.parse_terms( patterns_file=patterns, single_term=None )
     ok_( len(terms) > 5 )
 
+def commit_parser_test():
+    parser = CommitParser()
+    patterns = open( 'clouseau/patterns/default.txt', 'r' )
+    commit_output = open('tests/fixtures/commit_show.txt', 'r')
 
+    holder = {}
+    terms = TermsCollector().collect_terms('clouseau/patterns/default.txt', None)
+    model = ClouseauModel('https://github.com/virtix/clouseau', terms)
+    parser.parse_commit(terms, commit_output.read(), holder, model)
+    print "holder is "
+    pprint.pprint(holder)
+
+    print "clouseau model is "
+    pprint.pprint(model.model)
+
+def diff_header_to_filenames_test():
+    parser = CommitParser()
+    (left, right) = parser.diff_header_to_file_names("a/hooktest2.txt b/hooktest2.txt")
+    eq_("hooktest2.txt", left)
+    eq_("hooktest2.txt", right)
+
+    (left, right) = parser.diff_header_to_file_names("a/somedir/hooktest2.txt b/somedir/hooktest2.txt")
+    eq_("somedir/hooktest2.txt", left)
+    eq_("somedir/hooktest2.txt", right)
 
 # Fetched some pre-generated data
 def get_results():

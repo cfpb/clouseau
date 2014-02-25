@@ -10,7 +10,7 @@ from clouseau_model import ClouseauModel
 # -----------------------------------------------------------------------------------------------
 class CommitParser:
     """
-    Converts git-diff's stdout to Python dictionary
+    Converts git-show's stdout to Python dictionary for any commit messages and file changes that match the terms in the patterns files
     """
 
     def __init__( self ):
@@ -22,12 +22,17 @@ class CommitParser:
         """
         git_dir = repo + '/.git'
 
-        #TODO: get proper commit range, etc. For now... show last commit
         for rev in revlist.split(' '):
             output = self.get_commit(git_dir, rev)
-            self.parse_commit( terms, output, clouseau_model )
+            if output.strip() == '':
+                print "WARNING: No output was returned from git for commit [%s]. Ensure the commit exists" % rev
+            else:
+                self.parse_commit( terms, output, clouseau_model )
 
     def get_commit(self, git_dir, commit):
+        """
+        Get the stdout of a call to `git show @commit --no-color --unified=0` for the directory specified by @git_dir
+        """
         git_show_cmd = ['git', 'show', commit, '--no-color', '--unified=0']
         git_show = subprocess.Popen(git_show_cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE, cwd=git_dir)
         (out,err) = git_show.communicate()
@@ -37,7 +42,7 @@ class CommitParser:
 
     def parse_commit(self, terms, commit_output, clouseau_model):
         """
-        @commit_output is the output of git_show
+        @commit_output is the output of git-show
         @clouseau_model is the data structure we'll continue to update. Mutable State FTW
         """
 
@@ -49,6 +54,8 @@ class CommitParser:
         git_log = [x.strip() for x in parts[0].split('\n') if x != ''] # consequently, the log body will always be git_log[3:]
         refspec = git_log[0].split(' ')[1] # grabs sha from 'commit d1859009afc7e48506ec025a07f4f90ce4c5a210'
         git_log_body = ' '.join(git_log[3:])
+
+        ## Admittedly brittle... a commit message or a file in the commit that contains this string will hose the whole darn thing
         diffs = parts[1].split('diff --git')
 
         for term in terms:

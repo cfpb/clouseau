@@ -113,6 +113,8 @@ Clouseau: A silly git inspector
     --author AUTHOR         Perform searched for commits made by AUTHOR; e.g., an email address or name.
     --skip   SKIP           If specified, skips any calls to git-clone or git-pull.
 
+```
+
 ### Minimal Output
 
 For continuous integration environments, minimal output may be desirable. In that case, use `bin/clouseau_thin`:
@@ -120,3 +122,54 @@ For continuous integration environments, minimal output may be desirable. In tha
 `$ bin/clouseau_thin -u [git_url] ...`
 
 `clouseau_thin` supports all clouseau options and differs only in the verbosity and attractiveness of its output.
+
+### Running as a `post-commit` hook
+
+First, install Clouseau by changing directory to your cloned Clouseau project root and then `pip install -e ./`
+
+Test the install by changing to any other directory and issuing `clouseau` and also `clouseau_thin`
+
+Now, change to one of your local git repos.
+
+Create `.git/hooks/post-commit` and make it executable (`chmod +x .git/hooks/post-commit`)
+
+Edit it with content such as this:
+
+```
+#!/bin/sh
+
+echo "running clouseau"
+remote_url=$(git config --get remote.origin.url)
+clouseau_thin -u $remote_url --skip --dest $(dirname $(pwd)) --revlist="HEAD"
+```
+
+Now, make a commit to that project.
+
+You should see that Clouseau runs and finds nothing.
+
+Make another commit, this time adding something that looks like a SSN or IP to the file and/or the commit message.
+Run Clouseau again, and you should see output such as this:
+
+```
+running clouseau
+Skipping git-clone or git-pull as --skip was found on the command line.
+Clouseau: a silly git inspector, searching [your_git_url]
+
+✓  hooktest.txt
+Search term:  username[ ]*=[ ]*.+
+git@github.com:marcesher/cato/commit/0731c34b40bcd4322c6b4daf044ec3587211808a
+Author: Marc Esher <marc.esher@gmail.com> Date:   Tue Feb 25 15:41:37 2014 -0500
+my username=foo
+
++production_ip=127.0.0.1  Line:19
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+✓  Commit Message
+Search term:  username[ ]*=[ ]*.+
+git@github.com:marcesher/cato/commit/0731c34b40bcd4322c6b4daf044ec3587211808a
+Author: Marc Esher <marc.esher@gmail.com> Date:   Tue Feb 25 15:41:37 2014 -0500
+my username=foo
+
+my username=foo  Line:1
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+```

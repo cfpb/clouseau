@@ -48,15 +48,12 @@ def commit_parser_test():
     patterns = open( 'clouseau/patterns/default.txt', 'r' )
     commit_output = open('tests/fixtures/commit_show.txt', 'r')
 
-    holder = {}
     terms = TermsCollector().collect_terms('clouseau/patterns/default.txt', None)
     model = ClouseauModel('https://github.com/virtix/clouseau', terms)
-    parser.parse_commit(terms, commit_output.read(), holder, model)
-    print "holder is "
-    pprint.pprint(holder)
+    parser.parse_commit(terms, commit_output.read(), model)
 
     print "clouseau model is "
-    pprint.pprint(model.model)
+    print model
 
 def diff_header_to_filenames_test():
     parser = CommitParser()

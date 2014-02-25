@@ -18,23 +18,14 @@ class CommitParser:
 
     def parse( self, terms, repo, revlist, clouseau_model, **kwargs ):
         """
-        For each term in @terms perform a search of the git repo and store search results
-        (if any) in an iterable.
+        For each term in @terms perform a search of the commits in the revlist and update the model with results
         """
-
-        # Main results data structure
-        clouseau = {}
-
-        github_url = kwargs.get( 'github_url' )
         git_dir = repo + '/.git'
-
-        clouseau.update( {'meta' : {'github_url': github_url } } )
 
         #TODO: get proper commit range, etc. For now... show last commit
         output = self.get_commit(git_dir, revlist)
 
-
-        clouseau = self.parse_commit( terms, output, clouseau, clouseau_model )
+        clouseau = self.parse_commit( terms, output, clouseau_model )
         return clouseau
 
     def get_commit(self, git_dir, commit):
@@ -45,10 +36,10 @@ class CommitParser:
         return out
 
 
-    def parse_commit(self, terms, commit_output, clouseau, clouseau_model):
+    def parse_commit(self, terms, commit_output, clouseau_model):
         """
         @commit_output is the output of git_show
-        @ clouseau is the data structure we'll continue to update. Mutable State FTW
+        @clouseau_model is the data structure we'll continue to update. Mutable State FTW
         """
 
         # First part will be the commit metadata... sha1, author, date, and body
@@ -62,13 +53,11 @@ class CommitParser:
         diffs = parts[1].split('diff --git')
 
         for term in terms:
-            clouseau.update( {term: {}}  )
             term_re = re.compile(term, re.IGNORECASE)
 
             # inspect commit message
             if term_re.search(git_log_body):
                 title = refspec + ":GIT_COMMIT_MESSAGE"
-                clouseau[term][title] = {'src': 'Commit Message', 'refspec': refspec, 'git_log': git_log, 'matched_lines': [[1,git_log_body]]}
                 title = clouseau_model.start_match(term=term, refspec=refspec, filename="Commit Message", git_log=git_log)
                 clouseau_model.add_match_line(term, title, 1, git_log_body)
             # for each file, inspect lines
@@ -90,14 +79,10 @@ class CommitParser:
 
                     elif line.startswith('+'):
                         if term_re.search(line):
-                            if not title in clouseau[term]:
-                                clouseau[term][title] = {'src': src, 'refspec': refspec, 'git_log': git_log, 'matched_lines': []}
-                            clouseau[term][title]['matched_lines'].append([line_counter, line])
-
                             title = clouseau_model.start_match(term=term, refspec=refspec, filename=src, git_log=git_log)
                             clouseau_model.add_match_line(term=term, title=title, line_number=line_counter, match_text=line)
                         line_counter += 1
-        return clouseau_model.model
+
 
     # TODO: thoroughly unit test this. Must account for file additions and deletions
     def diff_header_to_file_names(self, header):

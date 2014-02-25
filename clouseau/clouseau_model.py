@@ -4,6 +4,8 @@
 # Encapsulate the clouseau structure to simplify use in different parsers
 #
 #
+from pprint import pformat
+
 class ClouseauModel(object):
 
     model = {'meta': {'github_url': ''}}
@@ -23,6 +25,11 @@ class ClouseauModel(object):
     def add_match_line(self, term, title, line_number, match_text):
         self.model[term][title]['matched_lines'].append([line_number, match_text])
 
+    def __str__(self):
+        return pformat(self.model)
+
+    def __repr__(self):
+        return self.__str__()
 
 
   # {

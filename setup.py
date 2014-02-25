@@ -21,7 +21,7 @@ config = {
     'install_requires': ['jinja2','nose','nose-progressive'],
     'packages': ['clouseau','tests'],
     'py_modules': [],
-    'scripts': ['bin/clouseau'],
+    'scripts': ['bin/clouseau', 'bin/clouseau_thin'],
     'keywords': ['git', 'pii', 'security', 'search', 
             'sensitive information'],
     'classifiers': [

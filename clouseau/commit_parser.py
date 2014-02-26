@@ -22,7 +22,7 @@ class CommitParser:
         """
         git_dir = repo + '/.git'
 
-        for rev in revlist.split(' '):
+        for rev in revlist.strip().split(' '):
             output = self.get_commit(git_dir, rev)
             if output.strip() == '':
                 print "WARNING: No output was returned from git for commit [%s]. Ensure the commit exists" % rev

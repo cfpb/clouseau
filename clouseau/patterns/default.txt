@@ -19,4 +19,27 @@ cfpb
 # Private key
 -----BEGIN RSA PRIVATE KEY-----.*-----END RSA PRIVATE KEY-----
 
-
+#Dangerous-Functions-API
+eval
+exec
+random
+hash
+raw_input
+acct
+bind
+pickle
+Access-Control-Allow-Origin
+getlogin
+fork
+DEBUG
+select
+socket
+remove
+truncate
+syslog
+os.popen
+pathfind
+opendir
+mount
+nis_ping
+getenv

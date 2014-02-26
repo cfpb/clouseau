@@ -32,8 +32,10 @@ diff --git a/somedir/hooktest2.txt b/somedir/hooktest2.txt
 index 4ff3130..117bc67 100644
 --- a/somedir/hooktest2.txt
 +++ b/somedir/hooktest2.txt
-@@ -2,0 +3,3 @@ Hi dad. My password is foobar
-+My password is "IWannaRock"
+@@ -2,0 +3,5 @@ Hi dad. My password is foobar
++My password="IWannaRock"
++My password="IWantToRock"
++My password="GoGoGoGoGoooooo"
 +
 +
 @@ -3,0 +7,2 @@ My SSN is 000-999-7654

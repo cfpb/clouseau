@@ -2,7 +2,7 @@ import os
 from nose.tools import *
 from clouseau.clouseau import Clouseau
 from clouseau.parser import Parser
-from clouseau.colors import *
+from clouseau.clients.colors import *
 from clouseau.clients.console import ConsoleClient
 from jinja2 import Template, Environment, PackageLoader
 
@@ -48,8 +48,6 @@ def clouseau_should_fetch_git_repo_test():
     parsed = clouseau.parse_args( args )
     results = clouseau.clone_repo( parsed['url'], parsed['repo_dir'] )
     ok_(results)
-
-    
 
 
 def setUp():

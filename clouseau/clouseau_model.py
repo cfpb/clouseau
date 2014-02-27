@@ -1,4 +1,4 @@
-#! /usr/bin/ENV python
+#! /usr/bin/env python
 # -*- coding: utf-8 -*-
 #
 # Encapsulate the clouseau structure to simplify use in different parsers

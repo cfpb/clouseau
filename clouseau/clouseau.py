@@ -1,4 +1,4 @@
-#! /usr/bin/ENV python
+#! /usr/bin/env python
 # -*- coding: utf-8 -*-
 #
 # Clouseau, a silly git repo inspector

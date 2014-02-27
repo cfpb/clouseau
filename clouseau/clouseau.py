@@ -52,7 +52,7 @@ class Clouseau:
             results = parser.parse( terms=terms, repo=args['repo_dir'], revlist=args['revlist'] ,
                     before=args['before'], after=args['after'], author=args['author'], github_url=args['github_url'])
 
-        pprint.pprint(results)
+        # pprint.pprint(results)
         client.render( terms, results )
 
 

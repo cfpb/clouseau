@@ -24,9 +24,7 @@ pip install -r requirements.txt
 
 echo $TRAVIS_SECURE_ENV_VARS
 echo $TRAVIS_PULL_REQUEST
-
-ENV
-
+echo $BOTCLOUSEAU
 
 # Run clouseau
 ./bin/clouseau_thin -u https://github.com/$TRAVIS_REPO_SLUG --skip --dest $(dirname ../$(pwd)) --revlist="$REVS"

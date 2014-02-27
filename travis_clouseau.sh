@@ -25,6 +25,8 @@ pip install -r requirements.txt
 echo "secure vars? $TRAVIS_SECURE_ENV_VARS"
 echo "travis PR: $TRAVIS_PULL_REQUEST"
 echo "bc: $BOTCLOUSEAU"
+echo "$Revs: $REVS"
+echo "Range: $TRAVIS_COMMIT_RANGE"
 
 # Run clouseau
 echo "Running Clouseau"

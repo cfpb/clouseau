@@ -2,7 +2,7 @@
 {% for term in data if term != 'meta' %}
 
 {%- for item in data[term]  %}
-{{ '✓' }}  {{ data[term][item]['src'] }}
+{{ data[term][item]['src'] }}
 {{"Search term"}}:  {{ term }}
 {{ data['meta']['github_url'] ~ "/commit/" ~ data[term][item]['refspec'] }}
 {{ data[term][item]['git_log'][1] }} {{ data[term][item]['git_log'][2] }}

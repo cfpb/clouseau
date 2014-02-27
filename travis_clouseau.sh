@@ -9,9 +9,9 @@ fi
 
 # Download clouseau
 if [ ! -d "clouseau_run" ]; then
-    wget -O clouseau_run.tar.gz http://github.com/virtix/clouseau/archive/master.tar.gz
+    wget -O clouseau_run.tar.gz http://github.com/dlapiduz/clouseau/archive/travis.tar.gz
     tar xfz clouseau_run.tar.gz
-    mv clouseau-master clouseau_run
+    mv clouseau-travis clouseau_run
 fi
 
 # Install clouseau

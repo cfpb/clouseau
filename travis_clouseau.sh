@@ -22,9 +22,10 @@ export PYTHONPATH=$PYTHONPATH:.
 pip install -r requirements.txt
 
 
-echo $TRAVIS_SECURE_ENV_VARS
-echo $TRAVIS_PULL_REQUEST
-echo $BOTCLOUSEAU
+echo "secure vars? $TRAVIS_SECURE_ENV_VARS"
+echo "travis PR: $TRAVIS_PULL_REQUEST"
+echo "bc: $BOTCLOUSEAU"
 
 # Run clouseau
+echo "Running Clouseau"
 ./bin/clouseau_thin -u https://github.com/$TRAVIS_REPO_SLUG --skip --dest $(dirname ../$(pwd)) --revlist="$REVS"

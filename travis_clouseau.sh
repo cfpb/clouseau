@@ -18,6 +18,7 @@ fi
 
 # Install clouseau
 cd clouseau_run
+export PYTHONPATH=$PYTHONPATH:.
 pip install -r requirements.txt
 
 # Run clouseau

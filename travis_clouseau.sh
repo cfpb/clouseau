@@ -30,4 +30,4 @@ echo "Range: $TRAVIS_COMMIT_RANGE"
 
 # Run clouseau
 echo "Running Clouseau"
-./bin/clouseau_thin -u https://github.com/$TRAVIS_REPO_SLUG --skip --dest $(dirname ../$(pwd)) --revlist="$REVS"
+./bin/clouseau_thin -u https://github.com/$TRAVIS_REPO_SLUG --skip --dest $(dirname ../$(pwd)) --revlist="$REVS" > .clouseau_output.txt

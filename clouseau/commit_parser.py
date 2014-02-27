@@ -52,6 +52,8 @@ class CommitParser:
         # First part will be the commit metadata... sha1, author, date, and body
         # Second part will be all the diffs. Each diff is demarcated with 'diff --git'
 
+        print commit_output
+        
         parts = commit_output.split('diff --git', 1)
 
         git_log = [x.strip() for x in parts[0].split('\n') if x != ''] # consequently, the log body will always be git_log[3:]

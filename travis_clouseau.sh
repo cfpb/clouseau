@@ -32,3 +32,9 @@ echo "Running Clouseau"
 ./bin/clouseau_thin -u https://github.com/$TRAVIS_REPO_SLUG --skip --dest $(dirname ../$(pwd)) --revlist="$REVS" > .clouseau_output.txt
 
 curl -X POST -H "Content-Type: application/json" --data-binary @.clouseau_output.txt https://api.github.com/repos/$TRAVIS_REPO_SLUG/commits/$TRAVIS_COMMIT/comments?access_token=$BOTCLOUSEAU
+
+output=$(<.clouseau_output.txt)
+if [[ $output == *https://help.github.com/articles/remove-sensitive-data* ]]
+then
+  exit 1
+fi

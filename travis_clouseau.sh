@@ -22,13 +22,13 @@ export PYTHONPATH=$PYTHONPATH:.
 pip install -r requirements.txt
 
 
-echo "secure vars? $TRAVIS_SECURE_ENV_VARS"
 echo "travis PR: $TRAVIS_PULL_REQUEST"
-echo "bc: $BOTCLOUSEAU"
-echo "$Revs: $REVS"
 echo "Range: $TRAVIS_COMMIT_RANGE"
 echo "Commit: $TRAVIS_COMMIT"
+
 
 # Run clouseau
 echo "Running Clouseau"
 ./bin/clouseau_thin -u https://github.com/$TRAVIS_REPO_SLUG --skip --dest $(dirname ../$(pwd)) --revlist="$REVS" > .clouseau_output.txt
+
+curl -X POST -H "Content-Type: application/json" --data-binary @.clouseau_output.txt https://api.github.com/repos/$TRAVIS_REPO_SLUG/commits/$TRAVIS_COMMIT/comments?access_token=$BOTCLOUSEAU

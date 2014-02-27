@@ -11,7 +11,7 @@ fi
 
 # Download clouseau
 if [ ! -d "clouseau_run" ]; then
-    wget -O clouseau_run.tar.gz http://github.com/dlapiduz/clouseau/archive/travis.tar.gz
+    wget -O clouseau_run.tar.gz http://github.com/marcesher/clouseau/archive/travis.tar.gz
     tar xfz clouseau_run.tar.gz
     mv clouseau-travis clouseau_run
 fi
@@ -21,5 +21,14 @@ cd clouseau_run
 export PYTHONPATH=$PYTHONPATH:.
 pip install -r requirements.txt
 
+
+echo "secure vars? $TRAVIS_SECURE_ENV_VARS"
+echo "travis PR: $TRAVIS_PULL_REQUEST"
+echo "bc: $BOTCLOUSEAU"
+echo "$Revs: $REVS"
+echo "Range: $TRAVIS_COMMIT_RANGE"
+echo "Commit: $TRAVIS_COMMIT"
+
 # Run clouseau
-./bin/clouseau_thin -u https://github.com/$TRAVIS_REPO_SLUG --skip --dest $(dirname ../$(pwd)) --revlist="$REVS"
+echo "Running Clouseau"
+./bin/clouseau_thin -u https://github.com/$TRAVIS_REPO_SLUG --skip --dest $(dirname ../$(pwd)) --revlist="$REVS" > .clouseau_output.txt

@@ -27,6 +27,7 @@ echo "travis PR: $TRAVIS_PULL_REQUEST"
 echo "bc: $BOTCLOUSEAU"
 echo "$Revs: $REVS"
 echo "Range: $TRAVIS_COMMIT_RANGE"
+echo "Commit: $TRAVIS_COMMIT"
 
 # Run clouseau
 echo "Running Clouseau"

@@ -60,6 +60,9 @@ class CommitParser:
         refspec = git_log[0].split(' ')[1] # grabs sha from 'commit d1859009afc7e48506ec025a07f4f90ce4c5a210'
         git_log_body = ' '.join(git_log[3:])
 
+        if len(parts) == 1:
+            return
+
         ## Admittedly brittle... a commit message or a file in the commit that contains this string will hose the whole darn thing
         diffs = parts[1].split('diff --git')
 

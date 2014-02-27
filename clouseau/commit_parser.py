@@ -64,7 +64,7 @@ class CommitParser:
         # So lame... TODO: Refactor
         if len(parts) == 1:
             diffs = parts[0].split('diff --git')
-        else
+        else:
             diffs = parts[1].split('diff --git')
 
         for term in terms:

@@ -11,7 +11,7 @@ fi
 
 # Download clouseau
 if [ ! -d "clouseau_run" ]; then
-    wget -O clouseau_run.tar.gz http://github.com/dlapiduz/clouseau/archive/travis.tar.gz
+    wget -O clouseau_run.tar.gz http://github.com/marcesher/clouseau/archive/travis.tar.gz
     tar xfz clouseau_run.tar.gz
     mv clouseau-travis clouseau_run
 fi

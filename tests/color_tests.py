@@ -1,4 +1,4 @@
-#! /usr/bin/ENV python
+#! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
 from clouseau import colors

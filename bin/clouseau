@@ -1,4 +1,4 @@
-#! /usr/bin/ENV python
+#! /usr/bin/env python
 # -*- codes: utf-8 -*-
 import sys
 from clouseau.clouseau import Clouseau

@@ -52,6 +52,8 @@ class CommitParser:
         # First part will be the commit metadata... sha1, author, date, and body
         # Second part will be all the diffs. Each diff is demarcated with 'diff --git'
 
+        # print commit_output
+
         parts = commit_output.split('diff --git', 1)
 
         git_log = [x.strip() for x in parts[0].split('\n') if x != ''] # consequently, the log body will always be git_log[3:]
@@ -59,7 +61,11 @@ class CommitParser:
         git_log_body = ' '.join(git_log[3:])
 
         ## Admittedly brittle... a commit message or a file in the commit that contains this string will hose the whole darn thing
-        diffs = parts[1].split('diff --git')
+        # So lame... TODO: Refactor
+        if len(parts) == 1:
+            diffs = parts[0].split('diff --git')
+        else:
+            diffs = parts[1].split('diff --git')
 
         for term in terms:
             term_re = re.compile(term, re.IGNORECASE)

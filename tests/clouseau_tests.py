@@ -43,7 +43,6 @@ def collect_terms_test():
 
 def commit_parser_test():
     parser = CommitParser()
-    patterns = open( 'clouseau/patterns/default.txt', 'r' )
     commit_output = open('tests/fixtures/commit_show.txt', 'r')
 
     terms = TermsCollector().collect_terms('clouseau/patterns/default.txt', None)
@@ -67,6 +66,16 @@ def commit_parser_test():
     eq_(4, model.model[pass_equals_pattern]['d1859009afc7e48506ec025a07f4f90ce4c5a210:somedir_hooktest2_txt']['matched_lines'][1][0])
     eq_(5, model.model[pass_equals_pattern]['d1859009afc7e48506ec025a07f4f90ce4c5a210:somedir_hooktest2_txt']['matched_lines'][2][0])
 
+def commit_parser_merge_only_test():
+    parser = CommitParser()
+    commit_output = open('tests/fixtures/commit_show_merge_only.txt', 'r')
+
+    terms = TermsCollector().collect_terms('clouseau/patterns/default.txt', None)
+    model = ClouseauModel('https://github.com/virtix/clouseau', terms)
+    parser.parse_commit(terms, commit_output.read(), model)
+    commit_in_debug = model.model['DEBUG'].keys()[0]
+    eq_(1, model.model['DEBUG'][commit_in_debug]['matched_lines'][0][0])
+    eq_('Commit Message', model.model['DEBUG'][commit_in_debug]['src'])
 
 def diff_header_to_filenames_test():
     parser = CommitParser()

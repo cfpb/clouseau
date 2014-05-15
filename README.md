@@ -9,8 +9,8 @@ A silly git repo inspector
 - [ ] Works on reasonably sized repos (concurrency)
 - [ ] Stores previous runs
 
-The intent is that this can be run against any repo and it will search the index for 
-file blobs containing the patterns defined in a ```patterns.txt``` file or a regular expression 
+The intent is that this can be run against any repo and it will search the index for
+file blobs containing the patterns defined in a ```patterns.txt``` file or a regular expression
 specified on the command line.
 
 
@@ -39,7 +39,7 @@ And that's it! Now follow the usage instructions below.
 
 #### Current Usage
 
-```$ bin/clouseau --url [repo-url]``` ; e.g., ```$ bin/clouseau --url https://github.com/virtix/cato.git``` 
+```$ bin/clouseau --url [repo-url]``` ; e.g., ```$ bin/clouseau --url https://github.com/virtix/cato.git```
 
 Search the current revision using the default pattern file (clouseau/patterns/default.txt):
 ```$ clouseau -u https://github.com/virtix/cato.git```
@@ -72,14 +72,14 @@ Blame:
 ```$ clouseau -u https://github.com/virtix/cato.git --author bill```
 
 
-            
+
 
 It should look something like this:
 
 ![](https://raw.github.com/virtix/clouseau/master/ss.png)
 
 
-### Intended command-line interface 
+### Intended command-line interface
 
 ```
 $ bin/clouseau -h
@@ -87,9 +87,9 @@ usage: clouseau [-h] [-v] --url URL [--term TERM] [--patterns PATTERNS]
                 [--clean] [--output OUTPUT_FORMAT]
                 [--output-destination OUTPUT_DESTINATION] [--dest DEST]
                 [--pathspec PATHSPEC]
-                                                
+
 Clouseau: A silly git inspector
-                                                
+
  optional arguments:
    -h, --help               show this help message and exit
    -v, --version            show program's version number and exit
@@ -104,7 +104,7 @@ Clouseau: A silly git inspector
                             Location where the output is to be stored. Default ./temp.
    --dest DEST, -d DEST  The directory where the git repo is stored. Default: ./temp  (NOT YET IMPLEMENTED)
    --revlist REVLIST, -rl REVLIST
-                           A space-delimted list of revisions (commits) to search. 
+                           A space-delimted list of revisions (commits) to search.
                            Defaults to HEAD. Specify 'all' to search the entire history.
    --before BEFORE, -b BEFORE
                             Search commits that occur prior to this date; e.g., Mar-08-2013
@@ -172,4 +172,12 @@ my username=foo
 
 my username=foo  Line:1
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+```
+
+### Running with Docker
+
+Clouseau is now in the Docker index and you can run it with a simple docker command:
+
+```
+docker run -i -e "GIT_URL=https://github.com/virtix/cato.git" -t dlapiduz/clouseau
 ```

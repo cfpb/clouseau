@@ -45,10 +45,10 @@ Search the current revision using the default pattern file (clouseau/patterns/de
 ```$ clouseau -u https://github.com/virtix/cato.git```
 
 Search using a single regular expression:
-```$ bin/couseau --url https://github.com/virtix/cato.git --term "Your Name"```
+```$ bin/clouseau --url https://github.com/virtix/cato.git --term "Your Name"```
 
 Search the entire history for a single term (quite slow and needs threading or multi-process work):
-```$ bin/couseau --url https://github.com/virtix/cato.git --term "Your Name"  --revlist all```
+```$ bin/clouseau --url https://github.com/virtix/cato.git --term "Your Name"  --revlist all```
 
 Search the current revision using a different pattern file:
 ```$ clouseau -u https://github.com/virtix/cato.git --patterns ~/projects/patterns/profanity.txt```

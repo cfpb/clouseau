@@ -76,7 +76,7 @@ Blame:
 
 It should look something like this:
 
-![](https://raw.github.com/virtix/clouseau/master/ss.png)
+![](https://raw.github.com/cfpb/clouseau/master/ss.png)
 
 
 ### Intended command-line interface

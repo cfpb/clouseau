@@ -46,7 +46,7 @@ def commit_parser_test():
     commit_output = open('tests/fixtures/commit_show.txt', 'r')
 
     terms = TermsCollector().collect_terms('clouseau/patterns/default.txt', None)
-    model = ClouseauModel('https://github.com/virtix/clouseau', terms)
+    model = ClouseauModel('https://github.com/cfpb/clouseau', terms)
     parser.parse_commit(terms, commit_output.read(), model)
 
     ### Brittleness alert: These tests are based on the fixture file. The assertions are quite specific, based on what we know to be true about the fixture
@@ -71,7 +71,7 @@ def commit_parser_merge_only_test():
     commit_output = open('tests/fixtures/commit_show_merge_only.txt', 'r')
 
     terms = TermsCollector().collect_terms('clouseau/patterns/default.txt', None)
-    model = ClouseauModel('https://github.com/virtix/clouseau', terms)
+    model = ClouseauModel('https://github.com/cfpb/clouseau', terms)
     parser.parse_commit(terms, commit_output.read(), model)
     exec_in_commit = model.model['exec'].keys()[0]
     eq_(1, model.model['exec'][exec_in_commit]['matched_lines'][0][0])

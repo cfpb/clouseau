@@ -4,7 +4,7 @@ A silly git repo inspector
 
 ### Status: Prenatal (not recommended for production use)
 
-- [ X ] Proof of concept
+- [x] Proof of concept
 - [ ] Multiple output formats
 - [ ] Works on reasonably sized repos (concurrency)
 - [ ] Stores previous runs
@@ -181,3 +181,19 @@ Clouseau is now in the Docker index and you can run it with a simple docker comm
 ```
 docker run -i -e "GIT_URL=https://github.com/virtix/cato.git" -t dlapiduz/clouseau
 ```
+
+## Getting involved
+
+This section should detail why people should get involved and describe key areas you are
+currently focusing on; e.g., trying to get feedback on features, fixing certain bugs, building
+important pieces, etc.
+
+General instructions on _how_ to contribute should be stated with a link to [CONTRIBUTING](CONTRIBUTING.md).
+
+
+----
+
+## Open source licensing info
+1. [TERMS](TERMS.md)
+2. [LICENSE](LICENSE)
+3. [CFPB Source Code Policy](https://github.com/cfpb/source-code-policy/)

@@ -3,7 +3,7 @@ from nose.tools import *
 from clouseau.clouseau import Clouseau
 from clouseau.parser import Parser
 from clouseau.clients.colors import *
-from clouseau.clients.console import ConsoleClient
+from clouseau.clients.console_thin import ConsoleThinClient
 from jinja2 import Template, Environment, PackageLoader
 
 
@@ -13,15 +13,16 @@ from jinja2 import Template, Environment, PackageLoader
 def console_client_test():
     parser = Parser()
     terms = ['password']
-    args = ['-u', 'git://github.com/virtix/cato.git']
+    args = ['-u', 'https://github.com/virtix/cato.git']
     parsed = clouseau.parse_args( args )
-    ids = parser.parse( terms=terms, repo=parsed['repo_dir'], pathspec=parsed['pathspec'], 
-                        before=parsed['before'], after=parsed['after'], author=parsed['author'], 
+    print parsed
+    ids = parser.parse( terms=terms, repo=parsed['repo_dir'], revlist=parsed['revlist'],
+                        before=parsed['before'], after=parsed['after'], author=parsed['author'],
                         github_url=parsed['github_url'])
-        
+
     #ids = p.parse(terms, parsed['repo_dir'] )
     #print ids
-    client = ConsoleClient()
+    client = ConsoleThinClient()
     client.render( terms, ids )
 
 

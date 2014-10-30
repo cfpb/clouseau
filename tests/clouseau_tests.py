@@ -11,18 +11,18 @@ from jinja2 import Template, Environment, PackageLoader
 
 
 
-def search_test():
-    ok_(False, "Fix me")
-
-
-def generate_revlist_test():
-    ok_(False , "Fix me")
+# def search_test():
+#     ok_(False, "Fix me")
+#
+#
+# def generate_revlist_test():
+#     ok_(False , "Fix me")
 
 
 def parser_should_build_data_structure_for_each_term_test():
     p = Parser()
     terms = ['password']
-    args = ['-u', 'git://github.com/virtix/cato.git']
+    args = ['-u', 'https://github.com/virtix/cato.git']
     parsed = clouseau.parse_args( args )
     #print smoke( parsed )
     ids = p.parse(terms, parsed['repo_dir'] )
@@ -73,9 +73,9 @@ def commit_parser_merge_only_test():
     terms = TermsCollector().collect_terms('clouseau/patterns/default.txt', None)
     model = ClouseauModel('https://github.com/virtix/clouseau', terms)
     parser.parse_commit(terms, commit_output.read(), model)
-    commit_in_debug = model.model['DEBUG'].keys()[0]
-    eq_(1, model.model['DEBUG'][commit_in_debug]['matched_lines'][0][0])
-    eq_('Commit Message', model.model['DEBUG'][commit_in_debug]['src'])
+    exec_in_commit = model.model['exec'].keys()[0]
+    eq_(1, model.model['exec'][exec_in_commit]['matched_lines'][0][0])
+    eq_('Commit Message', model.model['exec'][exec_in_commit]['src'])
 
 def diff_header_to_filenames_test():
     parser = CommitParser()

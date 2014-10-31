@@ -1,6 +1,20 @@
 # Clouseau
 
-A silly git repo inspector
+[![Build Status](https://travis-ci.org/cfpb/clouseau.svg)](https://travis-ci.org/cfpb/clouseau)
+
+
+## Orientation
+
+Clouseau is a silly git repo inspector.
+
+It searches git commits -- source code and commit messages -- for undesirable text patterns.
+
+Clouseau is written in Python.
+
+## Dependencies
+
+ - git
+ - Python 2.7
 
 ## Status: Prenatal (not recommended for production use)
 

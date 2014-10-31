@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from clouseau import colors
+from clouseau.clients import colors
 
 
 

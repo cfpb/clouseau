@@ -14,7 +14,7 @@ config = {
 
     
     'author': 'bill shelton',
-    'url': 'https://github.com/virtix/clouseau',
+    'url': 'https://github.com/cfpb/clouseau',
     'download_url': 'http://tbd.com',
     'author_email': 'bill@if.io',
     'version': '0.2.0',

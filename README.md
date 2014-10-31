@@ -2,7 +2,7 @@
 
 A silly git repo inspector
 
-### Status: Prenatal (not recommended for production use)
+## Status: Prenatal (not recommended for production use)
 
 - [x] Proof of concept
 - [ ] Multiple output formats
@@ -14,7 +14,7 @@ file blobs containing the patterns defined in a ```patterns.txt``` file or a reg
 specified on the command line.
 
 
-#### Quick Setup
+## Quick setup
 
 1. Clone this repository somewhere you can execute Python code.
 
@@ -37,7 +37,7 @@ specified on the command line.
 And that's it! Now follow the usage instructions below.
 
 
-#### Current Usage
+## Usage
 
 ```$ bin/clouseau --url [repo-url]``` ; e.g., ```$ bin/clouseau --url https://github.com/virtix/cato.git```
 
@@ -76,7 +76,7 @@ Blame:
 
 It should look something like this:
 
-![](https://raw.github.com/virtix/clouseau/master/ss.png)
+![](https://raw.github.com/cfpb/clouseau/master/ss.png)
 
 
 ### Intended command-line interface
@@ -86,7 +86,7 @@ $ bin/clouseau -h
 usage: clouseau [-h] [-v] --url URL [--term TERM] [--patterns PATTERNS]
                 [--clean] [--output OUTPUT_FORMAT]
                 [--output-destination OUTPUT_DESTINATION] [--dest DEST]
-                [--pathspec PATHSPEC]
+                [--revlist REVLIST]
 
 Clouseau: A silly git inspector
 
@@ -108,14 +108,14 @@ Clouseau: A silly git inspector
                            Defaults to HEAD. Specify 'all' to search the entire history.
    --before BEFORE, -b BEFORE
                             Search commits that occur prior to this date; e.g., Mar-08-2013
-    --after AFTER, -a AFTER
+   --after AFTER, -a AFTER
                             Search commits that occur after this date; e.g., Mar-10-2013
-    --author AUTHOR         Perform searched for commits made by AUTHOR; e.g., an email address or name.
-    --skip   SKIP           If specified, skips any calls to git-clone or git-pull.
+   --author AUTHOR         Perform searched for commits made by AUTHOR; e.g., an email address or name.
+   --skip   SKIP           If specified, skips any calls to git-clone or git-pull.
 
 ```
 
-### Minimal Output
+### Minimal output
 
 For continuous integration environments, minimal output may be desirable. In that case, use `bin/clouseau_thin`:
 
@@ -182,13 +182,23 @@ Clouseau is now in the Docker index and you can run it with a simple docker comm
 docker run -i -e "GIT_URL=https://github.com/virtix/cato.git" -t dlapiduz/clouseau
 ```
 
+## Running unit tests
+
+To run unit tests, issue:
+
+```sh
+nosetests
+```
+
 ## Getting involved
 
-This section should detail why people should get involved and describe key areas you are
-currently focusing on; e.g., trying to get feedback on features, fixing certain bugs, building
-important pieces, etc.
+If you're nterested in using Clouseau to scan your source code and commit messages for undesirable content,
+please get involved.
 
-General instructions on _how_ to contribute should be stated with a link to [CONTRIBUTING](CONTRIBUTING.md).
+We welcome feature requests, bug reports, and code / documentation improvements.
+We also welcome stories of how you're using Clouseau.
+
+General instructions on _how_ to contribute are described in [CONTRIBUTING](CONTRIBUTING.md).
 
 
 ----

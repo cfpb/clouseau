@@ -25,21 +25,6 @@ def console_client_test():
     client = ConsoleThinClient()
     client.render( terms, ids )
 
-
-
-
-#integration test
-def parser_should_build_data_structure_for_each_term_test():
-    p = Parser()
-    terms = ['password']
-    args = ['-u', 'git://github.com/virtix/cato.git']
-    parsed = clouseau.parse_args( args )
-    #print smoke( parsed )
-    ids = p.parse(terms, parsed['repo_dir'] )
-    eq_(2, len(ids) , "This should have 2 keys: term (password) and meta" )
-
-
-
 #integration test
 def clouseau_should_fetch_git_repo_test():
     """
@@ -49,6 +34,18 @@ def clouseau_should_fetch_git_repo_test():
     parsed = clouseau.parse_args( args )
     results = clouseau.clone_repo( parsed['url'], parsed['repo_dir'] )
     ok_(results)
+
+
+#integration test
+def parser_should_build_data_structure_for_each_term_test():
+    p = Parser()
+    terms = ['password']
+    args = ['-u', 'https://github.com/virtix/cato.git']
+    parsed = clouseau.parse_args( args )
+    clouseau.clone_repo( parsed['url'], parsed['repo_dir'] )
+
+    ids = p.parse(terms, parsed['repo_dir'] )
+    eq_(2, len(ids) , "This should have 2 keys: term (password) and meta" )
 
 
 def setUp():

@@ -26,29 +26,20 @@ def console_client_test():
     client.render( terms, ids )
 
 
-
-
 #integration test
 def parser_should_build_data_structure_for_each_term_test():
+    """
+    If repr doesn't exist, clone; if exists, pull
+    Ensure appropriate data structure built for search terms
+    """
     p = Parser()
     terms = ['password']
-    args = ['-u', 'git://github.com/virtix/cato.git']
+    args = ['-u', 'https://github.com/virtix/cato.git']
     parsed = clouseau.parse_args( args )
-    #print smoke( parsed )
+    clouseau.clone_repo( parsed['url'], parsed['repo_dir'] )
+
     ids = p.parse(terms, parsed['repo_dir'] )
     eq_(2, len(ids) , "This should have 2 keys: term (password) and meta" )
-
-
-
-#integration test
-def clouseau_should_fetch_git_repo_test():
-    """
-    If repr doesn't exist, clone, it exists, pull
-    """
-    args = ['-u', 'git://github.com/virtix/cato.git']
-    parsed = clouseau.parse_args( args )
-    results = clouseau.clone_repo( parsed['url'], parsed['repo_dir'] )
-    ok_(results)
 
 
 def setUp():

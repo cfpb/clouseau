@@ -11,25 +11,6 @@ from jinja2 import Template, Environment, PackageLoader
 
 
 
-# def search_test():
-#     ok_(False, "Fix me")
-#
-#
-# def generate_revlist_test():
-#     ok_(False , "Fix me")
-
-
-def parser_should_build_data_structure_for_each_term_test():
-    p = Parser()
-    terms = ['password']
-    args = ['-u', 'https://github.com/virtix/cato.git']
-    parsed = clouseau.parse_args( args )
-    #print smoke( parsed )
-    ids = p.parse(terms, parsed['repo_dir'] )
-    eq_(2, len(ids) , "This should have 2 keys: term (password) and meta" )
-
-
-
 def clouseau_should_parse_args_test():
     args = ['-u', 'git@github.com/foo/baz.git']
     parsed = clouseau.parse_args( args )
@@ -91,7 +72,7 @@ def diff_header_to_filenames_test():
 def get_results():
     import pickle
     data = open( 'tests/fixtures/cato.pickle', 'r' )
-    ids = pickle.load( data ) 
+    ids = pickle.load( data )
     eq_(2, len(ids) , "This guard condition should have 2 keys: term (password) and meta" )
     return ids
 

@@ -3,6 +3,6 @@ python:
   - "2.7"
 install:
   - pip install -r requirements.txt
-  - pip freeze
 script:
-  - nosetests -sd
+  - pip freeze
+  - nosetests -d

@@ -33,6 +33,7 @@ def clouseau_should_fetch_git_repo_test():
     args = ['-u', 'git://github.com/virtix/cato.git']
     parsed = clouseau.parse_args( args )
     results = clouseau.clone_repo( parsed['url'], parsed['repo_dir'] )
+    print results
     ok_(results)
 
 

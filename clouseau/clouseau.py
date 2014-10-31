@@ -64,6 +64,7 @@ class Clouseau:
             print blue( "Directory, %s, exits. Trying git-pull instead of clone." % destination )
             _out = subprocess.check_output(['git', '--git-dir=%s/.git' % destination, 'pull'])       
             print smoke( "Git says: %s" % _out )
+            return _out
         
         except :
             e = sys.exc_info()[0]

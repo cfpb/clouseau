@@ -11,6 +11,8 @@
 {{'            `------------------------------------------------------------------------------`'|purple}}
 
 {{ "Clouseau found the following for "|darkgreen }} {{ data['meta']['github_url']|green ~ " :"|darkgreen }}
+
+{{"Hit"}} {{"space"|bold}} {{"to continue and"}} {{"q"|bold}} {{"to quit"}}
 {# {{ data|green }} #}
 {% for term in data if term != 'meta' %}
 {{"Search term"|bold}}:  {{ term|orange_bg }}

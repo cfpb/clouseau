@@ -12,7 +12,7 @@ config = {
         # Needs to be restructed text
         # os.path.join(os.path.dirname(__file__), 'README.md').read()
 
-    
+
     'author': 'bill shelton',
     'url': 'https://github.com/cfpb/clouseau',
     'download_url': 'http://tbd.com',
@@ -20,9 +20,10 @@ config = {
     'version': '0.2.0',
     'install_requires': ['jinja2','nose','nose-progressive'],
     'packages': ['clouseau','tests'],
+    'package_data': {'clouseau': ['clients/*.py', 'patterns/*.txt', 'templates/*.html']},
     'py_modules': [],
     'scripts': ['bin/clouseau', 'bin/clouseau_thin'],
-    'keywords': ['git', 'pii', 'security', 'search', 
+    'keywords': ['git', 'pii', 'security', 'search',
             'sensitive information'],
     'classifiers': [
             'Development Status :: -0 - Pre-Natal',
@@ -33,5 +34,5 @@ config = {
             'Operating System :: Linux',
     ]
 }
-                                 
+
 setup(**config)

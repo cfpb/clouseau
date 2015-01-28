@@ -59,6 +59,8 @@ Search a github repository to match patterns:
 ```$ bin/clouseau --url [repo-url]``` ; e.g., ```$ bin/clouseau --url https://github.com/virtix/cato.git```
 
 This will search against the default pattern file (`clouseau/patterns/default.txt`) and display any matches for each of the patterns the file contains.  
+  
+  
 The results should look something like this:
 
 ![](https://raw.github.com/cfpb/clouseau/master/ss.png)

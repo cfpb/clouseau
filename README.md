@@ -15,6 +15,7 @@ Clouseau is written in Python.
 
  - git
  - Python 2.7
+ - virtualenv
 
 ## Status: Prenatal (not recommended for production use)
 
@@ -53,11 +54,11 @@ And that's it! Now follow the usage instructions below.
 
 ## Basic Usage
 
-Search a github repository to match patterns (this will use default pattern file `clouseau/patterns/default.txt`):
+Search a github repository to match patterns:
 
 ```$ bin/clouseau --url [repo-url]``` ; e.g., ```$ bin/clouseau --url https://github.com/virtix/cato.git```
 
-
+This will search against the default pattern file (`clouseau/patterns/default.txt`) and display any matches for each of the patterns the file contains.  
 The results should look something like this:
 
 ![](https://raw.github.com/cfpb/clouseau/master/ss.png)

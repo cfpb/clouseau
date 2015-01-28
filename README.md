@@ -3,29 +3,20 @@
 [![Build Status](https://travis-ci.org/cfpb/clouseau.svg)](https://travis-ci.org/cfpb/clouseau)
 
 
-## Orientation
+## What is Clouseau?
 
-Clouseau is a silly git repo inspector.
+Clouseau is a silly git repo inspector. 
 
-It searches git commits -- source code and commit messages -- for undesirable text patterns.
+Clouseau is a P.I. for your PII. It searches git commits -- source code and commit messages -- for undesirable text patterns, such as passwords, ssh keys and personal identifiable information. You can create other patterns to search for profanity or search for other information with a regular expression specified on the command line. 
 
-Clouseau is written in Python.
+See the **Get Involved** section at the end of this readme to see the current status of this project and contribute.
 
 ## Dependencies
 
  - git
  - Python 2.7
-
-## Status: Prenatal (not recommended for production use)
-
-- [x] Proof of concept
-- [ ] Multiple output formats
-- [ ] Works on reasonably sized repos (concurrency)
-- [ ] Stores previous runs
-
-The intent is that this can be run against any repo and it will search the index for
-file blobs containing the patterns defined in a ```patterns.txt``` file or a regular expression
-specified on the command line.
+ 
+See the [requirements.txt](requirements.txt) file for additional dependencies to be installed in the quick setup.
 
 
 ## Quick setup
@@ -204,10 +195,22 @@ To run unit tests, issue:
 nosetests
 ```
 
+
 ## Getting involved
 
 If you're interested in using Clouseau to scan your source code and commit messages for undesirable content,
 please get involved.
+
+Clouseau is currently in an early stage of development and not recommended for production use.
+
+- [x] Proof of concept
+- [ ] Multiple output formats
+- [ ] Works on reasonably sized repos (concurrency)
+- [ ] Stores previous runs
+
+The intent is that this can be run against any repo and it will search the index for
+file blobs containing the patterns defined in a ```patterns.txt``` file or a regular expression
+specified on the command line.
 
 We welcome feature requests, bug reports, and code / documentation improvements.
 We also welcome stories of how you're using Clouseau.

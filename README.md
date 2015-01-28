@@ -7,14 +7,14 @@
 
 Clouseau is a silly git repo inspector. 
 
-Clouseau is a P.I. for your PII. It searches git commits -- source code and commit messages -- for undesirable text patterns, such as passwords, ssh keys and personal identifiable information. You can create other patterns to search for profanity or search for other information with a regular expression specified on the command line. 
+Clouseau is a P.I. for your PII. It searches git commits -- source code and commit messages -- for undesirable text patterns, such as passwords, ssh keys and personal identifiable information. You can search for profanity or other information with a new pattern file or a regular expression specified on the command line. 
 
 See the **Get Involved** section at the end of this readme to see the current status of this project and contribute.
 
 ## Dependencies
-
- - git
- - Python 2.7
+ - Unix-based OS, such as Mac or Linux (Windows support is unclear at this time.) 
+ - [git](http://git-scm.com/)
+ - [Python 2.7](https://www.python.org/download/releases/2.7/)
  
 See the [requirements.txt](requirements.txt) file for additional dependencies to be installed in the quick setup.
 

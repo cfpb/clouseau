@@ -51,46 +51,46 @@ specified on the command line.
 And that's it! Now follow the usage instructions below.
 
 
-## Usage
+## Basic Usage
+
+Search a github repository to match patterns (this will use default pattern file `clouseau/patterns/default.txt`):
 
 ```$ bin/clouseau --url [repo-url]``` ; e.g., ```$ bin/clouseau --url https://github.com/virtix/cato.git```
 
-Search the current revision using the default pattern file (clouseau/patterns/default.txt):
-```$ bin/clouseau -u https://github.com/virtix/cato.git```
 
-Search using a single regular expression:
-```$ bin/clouseau --url https://github.com/virtix/cato.git --term "Your Name"```
-
-Search the entire history for a single term (quite slow and needs threading or multi-process work):
-```$ bin/clouseau --url https://github.com/virtix/cato.git --term "Your Name"  --revlist all```
-
-Search the current revision using a different pattern file:
-```$ bin/clouseau -u https://github.com/virtix/cato.git --patterns ~/projects/patterns/profanity.txt```
-
-Search the current revision using multiple pattern files:
-```$ bin/clouseau -u https://github.com/virtix/cato.git --patterns ~/projects/patterns/profanity.txt,~/projects/patterns/custom_pattern.txt```
-
-Skip either cloning or pulling and just scan:
-```$ bin/clouseau -u https://github.com/virtix/cato.git --skip```
-
-Search the specific revision :
-```$ bin/clouseau -u https://github.com/virtix/cato.git --revlist 5c0b30b007```
-
-Search between the range onf two commits:
-```$ bin/clouseau -u https://gituhub.com/virtix/cato.git --revlist d46868fe...3ea013e8```
-
-Search since a given date:
-```$  bin/clouseau -u https://github.com/virtix/cato.git --after 03/10/13```
-
-Blame:
-```$ bin/clouseau -u https://github.com/virtix/cato.git --author bill```
-
-
-
-
-It should look something like this:
+The results should look something like this:
 
 ![](https://raw.github.com/cfpb/clouseau/master/ss.png)
+
+
+## Additional Usage Options
+
+Search using a single regular expression:  
+```$ bin/clouseau --url https://github.com/virtix/cato.git --term "Your Name"```
+
+Search the entire history for a single term (quite slow and needs threading or multi-process work):  
+```$ bin/clouseau --url https://github.com/virtix/cato.git --term "Your Name"  --revlist all```
+
+Search the current revision using a different pattern file:  
+```$ bin/clouseau -u https://github.com/virtix/cato.git --patterns ~/projects/patterns/profanity.txt```
+
+Search the current revision using multiple pattern files:  
+```$ bin/clouseau -u https://github.com/virtix/cato.git --patterns ~/projects/patterns/profanity.txt,~/projects/patterns/custom_pattern.txt```
+
+Skip either cloning or pulling and just scan:  
+```$ bin/clouseau -u https://github.com/virtix/cato.git --skip```
+
+Search the specific revision :  
+```$ bin/clouseau -u https://github.com/virtix/cato.git --revlist 5c0b30b007```
+
+Search between the range of two commits:  
+```$ bin/clouseau -u https://gituhub.com/virtix/cato.git --revlist d46868fe...3ea013e8```
+
+Search since a given date:  
+```$  bin/clouseau -u https://github.com/virtix/cato.git --after 03/10/13```
+
+Blame:  
+```$ bin/clouseau -u https://github.com/virtix/cato.git --author bill```
 
 
 ### Intended command-line interface

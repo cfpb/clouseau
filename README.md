@@ -206,7 +206,7 @@ nosetests
 
 ## Getting involved
 
-If you're nterested in using Clouseau to scan your source code and commit messages for undesirable content,
+If you're interested in using Clouseau to scan your source code and commit messages for undesirable content,
 please get involved.
 
 We welcome feature requests, bug reports, and code / documentation improvements.

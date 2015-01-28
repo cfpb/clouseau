@@ -218,8 +218,6 @@ We also welcome stories of how you're using Clouseau.
 General instructions on _how_ to contribute are described in [CONTRIBUTING](CONTRIBUTING.md).
 
 
-----
-
 ## Open source licensing info
 1. [TERMS](TERMS.md)
 2. [LICENSE](LICENSE)

@@ -18,6 +18,7 @@ cfpb
 [0-9]{12}(?:[0-9]{3})?
 # Private key
 -----BEGIN RSA PRIVATE KEY-----.*-----END RSA PRIVATE KEY-----
+SECRET_KEY
 
 #Dangerous-Functions-API
 eval

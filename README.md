@@ -3,29 +3,22 @@
 [![Build Status](https://travis-ci.org/cfpb/clouseau.svg)](https://travis-ci.org/cfpb/clouseau)
 
 
-## Orientation
+## What is Clouseau?
 
-Clouseau is a silly git repo inspector.
+Clouseau is a silly git repo inspector. 
 
-It searches git commits -- source code and commit messages -- for undesirable text patterns.
+Clouseau is a P.I. for your PII. It searches git commits -- source code and commit messages -- for undesirable text patterns, such as passwords, ssh keys and personal identifiable information. You can search for profanity or other information with a new pattern file or a regular expression specified on the command line. 
 
-Clouseau is written in Python.
+See the **Get Involved** section at the end of this readme to see the current status of this project and contribute.
 
 ## Dependencies
 
- - git
- - Python 2.7
-
-## Status: Prenatal (not recommended for production use)
-
-- [x] Proof of concept
-- [ ] Multiple output formats
-- [ ] Works on reasonably sized repos (concurrency)
-- [ ] Stores previous runs
-
-The intent is that this can be run against any repo and it will search the index for
-file blobs containing the patterns defined in a ```patterns.txt``` file or a regular expression
-specified on the command line.
+ - Unix-based OS, such as Mac or Linux (Windows support is unclear at this time.) 
+ - [git](http://git-scm.com/)
+ - [Python 2.7](https://www.python.org/download/releases/2.7/)
+ - [virtualenv](https://virtualenv.pypa.io/en/latest/)
+ 
+See the [requirements.txt](requirements.txt) file for additional dependencies to be installed in the quick setup.
 
 
 ## Quick setup
@@ -51,46 +44,48 @@ specified on the command line.
 And that's it! Now follow the usage instructions below.
 
 
-## Usage
+## Basic Usage
+
+Search a github repository to match patterns:
 
 ```$ bin/clouseau --url [repo-url]``` ; e.g., ```$ bin/clouseau --url https://github.com/virtix/cato.git```
 
-Search the current revision using the default pattern file (clouseau/patterns/default.txt):
-```$ clouseau -u https://github.com/virtix/cato.git```
-
-Search using a single regular expression:
-```$ bin/clouseau --url https://github.com/virtix/cato.git --term "Your Name"```
-
-Search the entire history for a single term (quite slow and needs threading or multi-process work):
-```$ bin/clouseau --url https://github.com/virtix/cato.git --term "Your Name"  --revlist all```
-
-Search the current revision using a different pattern file:
-```$ clouseau -u https://github.com/virtix/cato.git --patterns ~/projects/patterns/profanity.txt```
-
-Search the current revision using multiple pattern files:
-```$ clouseau -u https://github.com/virtix/cato.git --patterns ~/projects/patterns/profanity.txt,~/projects/patterns/custom_pattern.txt```
-
-Skip either cloning or pulling and just scan:
-```$ clouseau -u https://github.com/virtix/cato.git --skip```
-
-Search the specific revision :
-```$ clouseau -u https://github.com/virtix/cato.git --revlist 5c0b30b007```
-
-Search between the range onf two commits:
-```$ clouseau -u https://gituhub.com/virtix/cato.git --revlist d46868fe...3ea013e8```
-
-Search since a given date:
-```$  clouseau -u https://github.com/virtix/cato.git --after 03/10/13```
-
-Blame:
-```$ clouseau -u https://github.com/virtix/cato.git --author bill```
-
-
-
-
-It should look something like this:
+This will search against the default pattern file (`clouseau/patterns/default.txt`) and display any matches for each of the patterns the file contains.  
+  
+  
+The results should look something like this:
 
 ![](https://raw.github.com/cfpb/clouseau/master/ss.png)
+
+
+## Additional Usage Options
+
+Search using a single regular expression:  
+```$ bin/clouseau --url https://github.com/virtix/cato.git --term "Your Name"```
+
+Search the entire history for a single term (quite slow and needs threading or multi-process work):  
+```$ bin/clouseau --url https://github.com/virtix/cato.git --term "Your Name"  --revlist all```
+
+Search the current revision using a different pattern file:  
+```$ bin/clouseau -u https://github.com/virtix/cato.git --patterns ~/projects/patterns/profanity.txt```
+
+Search the current revision using multiple pattern files:  
+```$ bin/clouseau -u https://github.com/virtix/cato.git --patterns ~/projects/patterns/profanity.txt,~/projects/patterns/custom_pattern.txt```
+
+Skip either cloning or pulling and just scan:  
+```$ bin/clouseau -u https://github.com/virtix/cato.git --skip```
+
+Search the specific revision :  
+```$ bin/clouseau -u https://github.com/virtix/cato.git --revlist 5c0b30b007```
+
+Search between the range of two commits:  
+```$ bin/clouseau -u https://gituhub.com/virtix/cato.git --revlist d46868fe...3ea013e8```
+
+Search since a given date:  
+```$  bin/clouseau -u https://github.com/virtix/cato.git --after 03/10/13```
+
+Blame:  
+```$ bin/clouseau -u https://github.com/virtix/cato.git --author bill```
 
 
 ### Intended command-line interface
@@ -204,18 +199,28 @@ To run unit tests, issue:
 nosetests
 ```
 
+
 ## Getting involved
 
-If you're nterested in using Clouseau to scan your source code and commit messages for undesirable content,
+If you're interested in using Clouseau to scan your source code and commit messages for undesirable content,
 please get involved.
+
+Clouseau is currently in an early stage of development and not recommended for production use.
+
+- [x] Proof of concept
+- [ ] Multiple output formats
+- [ ] Works on reasonably sized repos (concurrency)
+- [ ] Stores previous runs
+
+The intent is that this can be run against any repo and it will search the index for
+file blobs containing the patterns defined in a ```patterns.txt``` file or a regular expression
+specified on the command line.
 
 We welcome feature requests, bug reports, and code / documentation improvements.
 We also welcome stories of how you're using Clouseau.
 
 General instructions on _how_ to contribute are described in [CONTRIBUTING](CONTRIBUTING.md).
 
-
-----
 
 ## Open source licensing info
 1. [TERMS](TERMS.md)

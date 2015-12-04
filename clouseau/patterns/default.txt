@@ -19,7 +19,7 @@ cfpb
 # Private key
 -----BEGIN RSA PRIVATE KEY-----.*-----END RSA PRIVATE KEY-----
 SECRET_KEY
-
+_auth(Token)?=.+
 #Dangerous-Functions-API
 eval
 exec

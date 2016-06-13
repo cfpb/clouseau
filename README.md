@@ -132,6 +132,14 @@ For continuous integration environments, minimal output may be desirable. In tha
 
 `clouseau_thin` supports all clouseau options and differs only in the verbosity and attractiveness of its output.
 
+### Running locally on a cloned repository
+
+Run Clouseau from your cloned project root, with your repository's Github url in place of $remote_url:
+
+`$ clouseau_thin -u $remote_url --skip --dest $(dirname $(pwd)) --revlist="HEAD"`
+
+This is useful for checking local repositories for sensitive data before pushing to a public URL.
+
 ### Running as a `post-commit` hook
 
 First, install Clouseau by changing directory to your cloned Clouseau project root and then `pip install -e ./`

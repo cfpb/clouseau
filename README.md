@@ -183,6 +183,8 @@ my username=foo  Line:1
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 ```
 
+Clouseau's output can also [be sent to the Mac OS X Notification Center via post-commit hook](https://github.com/willbarton/clouseau-notification-hook/blob/master/post-commit.notification), which is useful for users of GitHub's GUI client for Mac.
+
 ### Running with Docker
 
 Clouseau is now in the Docker index and you can run it with a simple docker command:

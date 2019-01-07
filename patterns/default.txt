@@ -24,8 +24,8 @@ uname[\s]*=[\s]*.+
 
 # Private keys
 \-\-\-\-\-BEGIN\sRSA\sPRIVATE\sKEY\-\-\-\-\-.*\-\-\-\-\-END\sRSA\sPRIVATE\sKEY\-\-\-\-\-
-# SECRET_KEY
-# _auth(Token)?=.+
+SECRET_KEY
+_auth(Token)?=.+
 
 # Risky business
 eval
@@ -36,5 +36,5 @@ raw_input
 pickle
 
 # CFPB-specific concerns
-# \.gov
-# cfpb
+\.gov
+cfpb

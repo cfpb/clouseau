@@ -1,5 +1,0 @@
-commit d1859009afc7e48506ec025a07f4f90ce4c5a211
-Author: Marc Esher <marc.esher@gmail.com>
-Date:   Mon Feb 24 16:03:55 2014 -0500
-
-    Merge only. exec(unsanitized_input)

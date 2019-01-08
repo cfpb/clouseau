@@ -24,7 +24,23 @@ This repo continues to exist to store the Closeau library of patterns, somewhat 
 
 1. Install the Closeau profanity patterns into git-secrets with `git secrets  --add-provider -- grep -v \#  /path/to/clouseau/patterns/profanity.txt`
 
-And that's it!
+Once you've followed those steps, you'll be able to use [`git secrets --scan`](https://github.com/awslabs/git-secrets#options-for-scan) and [`git secrets --scan-history`](https://github.com/awslabs/git-secrets#operation-modes) to search a given repository for secrets.
+
+You can set up commit hooks in a particualr repo with:
+
+```
+git secrets --install
+```
+
+Or install the secrets hooks globally (for **newly created or cloned repos only**):
+
+```
+git secrets --install ~/.git-templates/git-secrets
+git config --global init.templateDir ~/.git-templates/git-secrets
+```
+
+For existing repos, you will want to go back and `git secrets --install` as described above.
+
 
 
 ## Usage

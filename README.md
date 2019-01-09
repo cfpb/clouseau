@@ -3,7 +3,7 @@
 
 ## What was Clouseau?
 
-Clouseau was a command-line tool that we used to scan git repositories for Personally identifiable information (PII), secret keys, and other credentials that we don't want to accidently commit. 
+Clouseau was a command-line tool that we used to scan git repositories for personally identifiable information (PII), secret keys, and other credentials that we don't want to accidentally commit. 
 
 We've decided that a more promising way to solve this problem is by utilizing the git-secrets project: https://github.com/awslabs/git-secrets
 

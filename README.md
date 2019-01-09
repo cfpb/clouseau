@@ -7,7 +7,7 @@ Clouseau was a command-line tool that we used to scan git repositories for Perso
 
 We've decided that a more promising way to solve this problem is by utilizing the git-secrets project: https://github.com/awslabs/git-secrets
 
-This repo continues to exist to store the Closeau library of patterns, somewhat reformatted for git-secrets compatability.
+This repo continues to exist to store the Clouseau library of patterns, somewhat reformatted for git-secrets compatibility.
 
 ## Dependencies
 
@@ -20,9 +20,9 @@ This repo continues to exist to store the Closeau library of patterns, somewhat 
 
 1. Check this repo out to your filesystem
 
-1. Install the Closeau default patterns into git-secrets with `git secrets  --add-provider -- grep -v \#  /path/to/clouseau/patterns/default.txt`
+1. Install the Clouseau default patterns into git-secrets with `git secrets  --add-provider -- grep -v \#  /path/to/clouseau/patterns/default.txt`
 
-1. Install the Closeau profanity patterns into git-secrets with `git secrets  --add-provider -- grep -v \#  /path/to/clouseau/patterns/profanity.txt`
+1. Install the Clouseau profanity patterns into git-secrets with `git secrets  --add-provider -- grep -v \#  /path/to/clouseau/patterns/profanity.txt`
 
 Once you've followed those steps, you'll be able to use [`git secrets --scan`](https://github.com/awslabs/git-secrets#options-for-scan) and [`git secrets --scan-history`](https://github.com/awslabs/git-secrets#operation-modes) to search a given repository for secrets.
 
@@ -45,7 +45,7 @@ For existing repos, you will want to go back and `git secrets --install` as desc
 
 ## Usage
 
-See [the git-secrets README](https://github.com/awslabs/git-secrets#synopsis) for details of scanning your repo (and it's history), and installing commit hooks to scan for secrets automatically.
+See [the git-secrets README](https://github.com/awslabs/git-secrets#synopsis) for details of scanning your repo (and its history), and installing commit hooks to scan for secrets automatically.
 
 
 ## Getting involved

@@ -26,7 +26,7 @@ This repo continues to exist to store the Clouseau library of patterns, somewhat
 
 Once you've followed those steps, you'll be able to use [`git secrets --scan`](https://github.com/awslabs/git-secrets#options-for-scan) and [`git secrets --scan-history`](https://github.com/awslabs/git-secrets#operation-modes) to search a given repository for secrets.
 
-You can set up commit hooks in a particualr repo with:
+You can set up commit hooks in a particular repo with:
 
 ```
 git secrets --install

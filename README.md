@@ -50,7 +50,7 @@ See [the git-secrets README](https://github.com/awslabs/git-secrets#synopsis) fo
 
 ## Getting involved
 
-If you're interested in using Clouseau to scan your source code and commit messages for undesirable content,
+If you're interested in using the Clouseau library of patterns to scan your source code and commit messages for undesirable content,
 please get involved. We especially appreciate new and updated patterns that will help keep repos free of risky data!
 
 General instructions on _how_ to contribute are described in [CONTRIBUTING](CONTRIBUTING.md).
